@@ -1,0 +1,2 @@
+# ocoge
+Ohiwa Code Generator
