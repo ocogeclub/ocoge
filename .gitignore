@@ -1,5 +1,5 @@
-.shared/
+.*/
+.*
 bin/
-!bin/sources/
 node_modules/
 *yarn*
