@@ -1,5 +1,5 @@
 .*/
-.*
+_*/
 bin/
 node_modules/
 *yarn*
