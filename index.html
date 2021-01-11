@@ -1340,9 +1340,9 @@ const ugj_canvasImg = imgSrc => {
   let ctx = el.getContext('2d');
   let img = new Image();
   img.src = imgSrc;
-  img.onload = () => ctx.drawImage(img, 200, 120);
+  img.onload = () => ctx.drawImage(img, 120, 0);
 };
-ugj_canvasImg("./img/saori_hakodot_2x.png?" + new Date().getTime()); // 描画実行
+ugj_canvasImg("./img/cogechee.png?" + new Date().getTime()); // 描画実行
 
 // HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
 ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部
