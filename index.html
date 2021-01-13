@@ -1340,9 +1340,12 @@ const ugj_canvasImg = imgSrc => {
   let ctx = el.getContext('2d');
   let img = new Image();
   img.src = imgSrc;
-  img.onload = () => ctx.drawImage(img, 120, 0);
+  img.onload = () => ctx.drawImage(img, 140, 80);
+  // img.onload = () => ctx.drawImage(img, 120, 0);
 };
-ugj_canvasImg("./img/cogechee.png?" + new Date().getTime()); // 描画実行
+// マスコット
+ugj_canvasImg("./img/mimmy.png?" + new Date().getTime()); // ミミィ
+// ugj_canvasImg("./img/cogechee.png?" + new Date().getTime()); // こげちー
 
 // HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
 ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部
