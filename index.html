@@ -1,479 +1,495 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8" />
+  <meta charset="UTF-8" />
 
-<link rel="stylesheet" href="./scripts/prettify_desert.css"></link>
-<style id="webmakerstyle">
-@font-face {
-  font-family: "Font Awesome 5 Free";
-  src: url("./fonts/fa-solid-900.woff2");
-}
-@font-face {
-  font-family: "Font Awesome 5 Brands";
-  src: url("./fonts/fa-brands-400.woff2");
-}
-@font-face {
-  font-family: "Source Code Pro JP";
-  src: url("./fonts/SourceHanCodeJP.otf");
-}
-@font-face {
-  font-family: "Pakchee R";
-  src: url("./fonts/Pakchee-R.otf");
-}
+  <link rel="stylesheet" href="./scripts/prettify_desert.css">
+  </link>
+  <link rel="stylesheet" href="./fonts/css/all.min.css">
+  </link>
+  <style id="webmakerstyle">
+    @font-face {
+      font-family: "Source Code Pro JP";
+      src: url("./fonts/SourceHanCodeJP.otf");
+    }
 
-.fas {
-  font-family: "Font Awesome 5 Free";
-}
+    @font-face {
+      font-family: "Pakchee R";
+      src: url("./fonts/Pakchee-R.otf");
+    }
 
-#conmenu {
-  width: 130px;
-  background-color: white;
-  border: 1px solid #999999;
-  display: none;
-  position: fixed;
-  font-size: small;
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-#conmenu.on {
-  display: block;
-}
-#conmenu ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-#conmenu li {
-  padding-left: 4px;
-  transition: 0.2s linear;
-}
-a.conCopy {
-  text-decoration: none;
-  display: block;
-  color: black;
-  transition: 0.2s linear;
-}
-#conmenu ul :hover {
-  background-color: gainsboro;
-}
+    #conmenu {
+      width: 130px;
+      background-color: white;
+      border: 1px solid #999999;
+      display: none;
+      position: fixed;
+      font-size: small;
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
 
-#codeDlg {
-  border-color: lightskyblue;
-  border-width: 1px;
-}
-#dlgTitle {
-  font-weight: bolder;
-  color: steelblue;
-}
-#dlgContent {
-  padding: 8px;
-  border-radius: 8px;
-  font-family: "Source Code Pro JP";
-  font-size: smaller;
-  max-width: 1024px;
-  max-height: 768px;
-  overflow: auto;
-}
-.dlgCli {
-  font-size: smaller;
-}
-.prettyprint ol {
-  padding-left: 36px;
-}
-.prettyprint ol.linenums > li {
-  list-style-type: decimal; /* 1行ごとに行番号を表示 */
-  border-left: solid 1px #ebb15e; /* 区切り線を表示  */
-  padding-left: 0.5rem; /* 間隔の調整（必要であれば） */
-}
+    #conmenu.on {
+      display: block;
+    }
 
-#inputForm {
-  display: none;
-}
+    #conmenu ul {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+    }
 
-.inputDiv {
-  position: relative;
-  display: inline-block;
-}
+    #conmenu li {
+      padding-left: 4px;
+      transition: 0.2s linear;
+    }
 
-#inputBox {
-  width: 454px;
-  font-size: 1em;
-  color: #666;
-  height: 26px;
-  padding-left: 10px;
-  padding-right: 28px;
-  padding-top: 0px;
-  border-radius: 20px;
-  border: solid;
-  border-width: 1px;
-  border-color: #ccf;
-  outline: none;
-  transition: 0.3s linear;
-}
+    a.conCopy {
+      text-decoration: none;
+      display: block;
+      color: black;
+      transition: 0.2s linear;
+    }
 
-#inputBox:hover {
-  border-color: #88f;
-}
+    #conmenu ul :hover {
+      background-color: gainsboro;
+    }
 
-#inputBox:focus {
-  border-color: #88f;
-  box-shadow: 0px 0px 4px 1px #ccc;
-}
+    #codeDlg {
+      border-color: lightskyblue;
+      border-width: 1px;
+    }
 
-.inputBtn {
-  position: absolute;
-  right: 1px;
-  top: 0px;
-  color: #99f;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 400;
-  font-size: 1.4em;
-  padding: 0px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  border-radius: 16px;
-  height: 28px;
-  width: 28px;
-  cursor: pointer;
-}
+    #dlgTitle {
+      font-weight: bolder;
+      color: steelblue;
+    }
 
-.inputBtn:hover {
-  font-weight: 900;
-}
+    #dlgContent {
+      padding: 8px;
+      border-radius: 8px;
+      font-family: "Source Code Pro JP";
+      font-size: smaller;
+      max-width: 1024px;
+      max-height: 768px;
+      overflow: auto;
+    }
 
-.display {
-  top: 6px;
-  border-radius: 6px;
-  position: absolute;
-}
+    .dlgCli {
+      font-size: smaller;
+    }
 
-#maindisplay {
-  display: none;
-}
-#subdisplay {
-  display: none;
-}
-.subdisplay {
-  width: 160px;
-  height: 120px;
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  border-radius: 4px;
-  border: solid 4px white;
-}
+    .prettyprint ol {
+      padding-left: 36px;
+    }
 
-#canvas {
-  background-color: white;
-}
+    .prettyprint ol.linenums>li {
+      list-style-type: decimal;
+      /* 1行ごとに行番号を表示 */
+      border-left: solid 1px #ebb15e;
+      /* 区切り線を表示  */
+      padding-left: 0.5rem;
+      /* 間隔の調整（必要であれば） */
+    }
 
-.game_fg {
-  background-color: rgba(255, 255, 255, 0.6);
-}
-#gcanvas {
-  background-color: rgba(255, 255, 255, 0.6);
-  display: none;
-}
+    #inputForm {
+      display: none;
+    }
 
-#display_area {
-  position: relative;
-  left: 0px;
-  width: 480px;
-  height: 360px;
-  padding: 6px;
-  background-color: #eef;
-  border-radius: 8px;
-  margin-top: 2px;
-  margin-bottom: 8px;
-}
+    .inputDiv {
+      position: relative;
+      display: inline-block;
+    }
 
-.rightPane {
-  position: absolute;
-  right: 8px;
-  top: 48px;
-  width: 500px;
-}
+    #inputBox {
+      width: 454px;
+      font-size: 1em;
+      color: #666;
+      height: 26px;
+      padding-left: 10px;
+      padding-right: 28px;
+      padding-top: 0px;
+      border-radius: 20px;
+      border: solid;
+      border-width: 1px;
+      border-color: #ccf;
+      outline: none;
+      transition: 0.3s linear;
+    }
 
-#blackboard {
-  display: none;
-  width: 480px;
-  height: 396px;
-  background-color: #333;
-  color: #ddd;
-  font-family: "Source Code Pro JP";
-  font-size: 0.9em;
-  padding-left: 8px;
-  padding-top: 4px;
-  border: 3px double #eee;
-  overflow: auto;
-  border-radius: 8px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
+    #inputBox:hover {
+      border-color: #88f;
+    }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-body {
-  background-color: #fff;
-  font-family: sans-serif;
-  overflow: hidden;
-}
-#blocklyArea {
-  height: 99%;
-}
-/* Override block text style */
-.blocklyText,
-.blocklyHtmlInput,
-.blocklyTreeLabel {
-  font-weight: normal !important;
-}
-/* Override Flyout BGColor */
-.blocklyFlyoutBackground {
-  fill: #eee;
-}
-/* Override Flyout TextColor */
-.blocklyFlyoutLabelText {
-  fill: gray !important;
-}
-/* Override Flyout Label TextSize & weight */
-.blocklyFlyoutHeading > .blocklyFlyoutLabelText {
-  font-size: 1.5rem;
-  /* font-weight: bolder; */
-}
-.blocklyFlyoutLabel > .blocklyFlyoutLabelText {
-  /* font-size: 1.5rem; */
-  font-weight: normal;
-}
-/* Override Flyout Horizontal line */
-line.blocklyFlyoutLine {
-  stroke: gray;
-}
-/* Flyout LabelIcon */
-.blocklyFlyoutLabelIcon {
-  font-family: "Font Awesome 5 Free";
-  font-size: 1.5rem;
-  font-weight: 900;
-  fill: gray;
-}
-/* ツールボックスの行の高さ・ホバー時の変化速度 */
-.blocklyTreeRow {
-  height: 36px !important;
-  transition-property: all;
-  transition: 0.2s linear;
-}
-/* ツールボックスの各項目のアイコン */
-/* 全体設定 */
-.blocklyTreeIconCustom {
-  background: none !important;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 1rem;
-  margin: 0 0.5em;
-  width: 12px !important;
-  height: 100% !important;
-  line-height: 36px;
-  min-height: 36px;
-  vertical-align: middle;
-}
-/* 項目別設定・色が直接指定になっているので注意 */
-.blocklyTreeIconCustom::before {
-  content: "\f12e";
-}
-.blocklyTreeIconCustom.logic::before {
-  content: "\f074";
-  color: #ffbf00;
-}
-.blocklyTreeIconCustom.loops::before {
-  content: "\f01e";
-  color: #ffab19;
-}
-.blocklyTreeIconCustom.math::before {
-  content: "\f1ec";
-  color: #59c059;
-}
-.blocklyTreeIconCustom.text::before {
-  content: "\f031";
-  color: #4cbfe6;
-}
-.blocklyTreeIconCustom.lists::before {
-  content: "\f0ca";
-  color: #ff661a;
-}
-.blocklyTreeIconCustom.colour::before {
-  content: "\f53f";
-}
-.blocklyTreeIconCustom.variables::before {
-  content: "\f0c9";
-  color: #ff8c1a;
-}
-.blocklyTreeIconCustom.functions::before {
-  content: "\f6ad";
-  color: #9966ff;
-}
-.blocklyTreeIconCustom.gpio::before {
-  font-family: "Font Awesome 5 Brands";
-  content: "\f7bb";
-  color: #ff7799;
-}
-.blocklyTreeIconCustom.multimedia::before {
-  content: "\f11b";
-  color: #cf63cf;
-}
-.blocklyTreeIconCustom.special::before {
-  content: "\f1e6";
-  color: #0fbd8c;
-}
-.blocklyTreeIconCustom.network::before {
-  content: "\f1eb";
-  color: #54c4ea;
-}
+    #inputBox:focus {
+      border-color: #88f;
+      box-shadow: 0px 0px 4px 1px #ccc;
+    }
 
-/* ツールバー */
-div.toolbar {
-  height: 42px;
-  position: relative;
-  background-color: #4d97ff;
-}
-div.toolbar-left {
-  margin-left: 8px;
-  margin-top: -4px;
-  display: inline-block;
-  color: white;
-}
-.appTitle {
-  font-family: "Pakchee R";
-  font-weight: normal;
-  font-size: x-large;
-  padding-left: 16px;
-  letter-spacing: 12px;
-}
-.o {
-  color: pink;
-}
-.co {
-  color: aliceblue;
-}
-.ge {
-  color: lemonchiffon;
-}
-.ga {
-  color: palegreen;
-}
-.homelink {
-  text-decoration: none;
-}
-.iconbutton {
-  color: white;
-  border: none;
-  background-color: transparent;
-  padding: 4px;
-  transition-property: all;
-  transition: 0.2s linear;
-  font-size: large;
-  outline: none;
-  text-decoration: none;
-}
-.iconbutton:active {
-  transform: translate(1px, 2px);
-}
-.redo {
-  vertical-align: middle;
-  margin-top: 1px;
-}
-div.toolbar-right {
-  position: absolute;
-  right: 2px;
-  margin-top: 5px;
-  display: inline-block;
-  /* text-align: right; */
-  width: 500px;
-}
-/* ツールバーボタン */
-.toolbarButton {
-  background-color: white;
-  border: none;
-  color: #4d97ff;
-  font-size: 12px;
-  border-radius: 4px;
-  transition-property: all;
-  transition: 0.2s linear;
-  width: 72px;
-  height: 30px;
-  outline: none;
-}
-.toolbarButton:hover {
-  background-color: #9fecff;
-  color: white;
-}
-.toolbarButton:active {
-  transform: translate(1px, 2px);
-}
-.ocgButton {
-  margin-right: 4px;
-  margin-bottom: 6px;
-}
-.ocgButton:hover {
-  box-shadow: 1px 1px 6px gray;
-}
+    .inputBtn {
+      position: absolute;
+      right: 1px;
+      top: 0px;
+      color: #99f;
+      font-weight: 400;
+      font-size: 1.4em;
+      padding: 0px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      border-radius: 16px;
+      height: 28px;
+      width: 28px;
+      cursor: pointer;
+    }
 
-</style>
+    .inputBtn:hover {
+      font-weight: 900;
+    }
+
+    .display {
+      top: 6px;
+      border-radius: 6px;
+      position: absolute;
+    }
+
+    #maindisplay {
+      display: none;
+    }
+
+    #subdisplay {
+      display: none;
+    }
+
+    .subdisplay {
+      width: 160px;
+      height: 120px;
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      border-radius: 4px;
+      border: solid 4px white;
+    }
+
+    #canvas_bg {
+      background-color: white;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 6;
+      left: 6;
+    }
+
+    .game_fg {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    #gcanvas {
+      background-color: rgba(255, 255, 255, 0.6);
+      display: none;
+    }
+
+    #display_area {
+      position: relative;
+      left: 0px;
+      width: 480px;
+      height: 360px;
+      padding: 6px;
+      background-color: #eef;
+      border-radius: 8px;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+
+    .rightPane {
+      position: absolute;
+      right: 8px;
+      top: 48px;
+      width: 500px;
+    }
+
+    #blackboard {
+      display: none;
+      width: 480px;
+      height: 396px;
+      background-color: #333;
+      color: #ddd;
+      font-family: "Source Code Pro JP";
+      font-size: 0.9em;
+      padding-left: 8px;
+      padding-top: 4px;
+      border: 3px double #eee;
+      overflow: auto;
+      border-radius: 8px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    #blocklyArea {
+      height: 99%;
+    }
+
+    /* ツールボックス背景色 */
+    div#blocklyDiv .blocklyToolboxDiv {
+      background: aliceblue;
+    }
+
+    /* ツールボックスの行の高さ・ホバー時の変化速度 */
+    .blocklyTreeRow {
+      /* height: 36px !important; */
+      transition-property: all;
+      transition: 0.2s linear;
+    }
+
+    /* ホバー時に影をつける */
+    .blocklyTreeRow:hover {
+      box-shadow: 1px 1px 4px steelblue;
+    }
+
+    /* Makes our label white. */
+    .blocklyTreeLabel {
+      color: white;
+    }
+
+    /* Adds padding around the group of categories and separators. */
+    .blocklyToolboxContents {
+      padding: .5em;
+    }
+
+    /* Adds space between the categories, rounds the corners and adds space around the label. */
+    .blocklyTreeRow {
+      padding: 3px;
+      margin-bottom: .5em;
+      border-radius: 4px;
+    }
+
+    /* Changes color of the icon to white. */
+    .customIcon {
+      color: white;
+      padding-top: 4px;
+    }
+
+    /* Stacks the icon on top of the label. */
+    .blocklyTreeRowContentContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .blocklyTreeRow {
+      height: initial;
+    }
+
+    /* Override Flyout BGColor */
+    .blocklyFlyoutBackground {
+      fill: lavender;
+    }
+
+    /* Override Flyout TextColor */
+    .blocklyFlyoutLabelText {
+      fill: steelblue !important;
+    }
+
+    /* ツールバー */
+    div.toolbar {
+      height: 42px;
+      position: relative;
+      background-color: #4d97ff;
+    }
+
+    div.toolbar-left {
+      margin-left: 8px;
+      margin-top: -4px;
+      display: inline-block;
+      color: white;
+    }
+
+    .appTitle {
+      font-family: "Pakchee R";
+      font-weight: normal;
+      font-size: x-large;
+      padding-left: 10px;
+      letter-spacing: 12px;
+    }
+
+    .o {
+      color: pink;
+    }
+
+    .co {
+      color: aliceblue;
+    }
+
+    .ge {
+      color: lemonchiffon;
+    }
+
+    .ga {
+      color: palegreen;
+    }
+
+    .homelink {
+      text-decoration: none;
+    }
+
+    .iconbutton {
+      color: white;
+      border: none;
+      background-color: transparent;
+      padding: 4px;
+      transition-property: all;
+      transition: 0.2s linear;
+      font-size: large;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .iconbutton:active {
+      transform: translate(1px, 2px);
+    }
+
+    .redo {
+      vertical-align: middle;
+      margin-top: 1px;
+    }
+
+    div.toolbar-right {
+      position: absolute;
+      right: 2px;
+      margin-top: 5px;
+      display: inline-block;
+      /* text-align: right; */
+      width: 500px;
+    }
+
+    /* ツールバーボタン */
+    .toolbarButton {
+      background-color: white;
+      border: none;
+      color: #4d97ff;
+      font-size: 12px;
+      border-radius: 4px;
+      transition-property: all;
+      transition: 0.2s linear;
+      width: 72px;
+      height: 30px;
+      outline: none;
+    }
+
+    .toolbarButton:hover {
+      background-color: #9fecff;
+      color: white;
+    }
+
+    .toolbarButton:active {
+      transform: translate(1px, 2px);
+    }
+
+    .ocgButton {
+      margin-right: 4px;
+      margin-bottom: 6px;
+    }
+
+    .ocgButton:hover {
+      box-shadow: 1px 1px 6px gray;
+    }
+  </style>
 </head>
+
 <body>
-<!-- コードダイアログ -->
-<dialog id="codeDlg">
-  <div id="dlgTitle">Javascript Code:</div>
-  <pre id="dlgContent" class="prettyprint lang-js linenums"></pre>
-  <button id="dlgClose" title="このダイアログを閉じます。">閉じる</button>
-  <button id="dlgExport" title="JavaScript コードをファイルに保存します。">ファイルに保存</button>
-  <span class="dlgCli" title="コードをファイルに保存する際、黒板表示ブロックのコードを console.log() に変更します。コマンドラインで動かしたい場合にちょっと便利です。"><input type="checkbox" id="dlgCli">CLI</span>
-  <div id="conmenu">
-    <ul>
-      <li><a href="#" onclick="document.execCommand('copy');" class="conCopy">コピー</a></li>
-    </ul>
+  <!-- コードダイアログ -->
+  <dialog id="codeDlg">
+    <div id="dlgTitle">Javascript Code:</div>
+    <pre id="dlgContent" class="prettyprint lang-js linenums"></pre>
+    <button id="dlgClose" title="このダイアログを閉じます。">閉じる</button>
+    <button id="dlgExport" title="JavaScript コードをファイルに保存します。">ファイルに保存</button>
+    <span class="dlgCli" title="コードをファイルに保存する際、黒板表示ブロックのコードを console.log() に変更します。コマンドラインで動かしたい場合にちょっと便利です。"><input
+        type="checkbox" id="dlgCli">CLI</span>
+    <div id="conmenu">
+      <ul>
+        <li><a href="#" onclick="document.execCommand('copy');" class="conCopy">コピー</a></li>
+      </ul>
+    </div>
+  </dialog>
+
+
+  <!-- ツールバー（左） -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <span class="appTitle" title="大岩産 Code Generator" onclick="testfunc()"><span class="o">お</span><span
+          class="co">こ</span><span class="ge">げ</span></span>
+    </div>
+
+    <!-- ツールバー（右） -->
+    <div class="toolbar-right" id="toolbar-right">
+      <button class="toolbarButton" title="JavaScriptのプログラムコードを表示・保存します。" onclick="ugj_showCode()"><i
+          class="fas fa-code"></i> CODE</button>
+      <button class="toolbarButton" title="ワークスペースや設定を削除して最初から始めます。" onclick="ugj_newWorkspace()"><i
+          class="fas fa-file"></i> 新規</button>
+      <button onclick="ugj_loadWorkspaceFromFile()" class="toolbarButton"
+        title="ファイルに保存したブロックプログラムを読み込みます。既にワークスペースにあるブロックは削除されません。"><i class="fas fa-folder-open"></i> 開く</button>
+      <button onclick="ugj_saveWorkspaceToFile()" class="toolbarButton" title="ワークスペースのブロックプログラムをファイルに保存します。"><i
+          class="fas fa-save"></i> 保存</button>
+      <button class="toolbarButton" title="ワークスペースのブロックプログラムを別名でファイルに保存します。" onclick="ugj_saveWorkspaceAs()"><i
+          class="fas fa-clone"></i> 別名</button>
+      <button class="toolbarButton" title="ブロックプログラムを実行します。" onclick="ugj_runCode()" id="runbtn"><i
+          class="fas fa-play-circle"></i> 実行</button>
+      <button class="iconbutton" title="アプリを再読み込みします。" onclick="location.reload()"><i
+          class="fas fa-redo-alt"></i></button>
+    </div>
   </div>
-</dialog>
 
+  <!-- Blockly -->
+  <div id="blocklyArea"></div>
+  <div id="blocklyDiv" style="position: absolute"></div>
 
-<!-- ツールバー（左） -->
-<div class="toolbar">
-	<div class="toolbar-left">
-    <span class="appTitle" title="大岩産 Code Generator" onclick="testfunc()"><span class="o">お</span><span class="co">こ</span><span class="ge">げ</span></span>
+  <!-- ディスプレイカラム（ビデオ・ターミナル表示） -->
+  <div class="rightPane" id="dispColumn">
+    <div id="display_area"><canvas id="canvas_bg" class="display" width="480" height="360"></canvas><canvas id="canvas"
+        class="display" width="480" height="360"></canvas><canvas id="gcanvas" class="display" width="480"
+        height="360"></canvas><video id="maindisplay" class="display" width="480" height="360" autoplay
+        muted></video><video id="subdisplay" class="subdisplay" width="160" height="120" autoplay muted></video></div>
+    <pre id="blackboard" disabled></pre>
+    <form name="inputForm" onsubmit="return false" autocomplete="off" id="inputForm">
+      <div class="inputDiv"><input type="text" id="inputBox">
+        <div class="inputBtnDiv"><input type="submit" value="&#xf058" class="inputBtn fas"></div>
+      </div>
+    </form>
   </div>
 
-<!-- ツールバー（右） -->
-  <div class="toolbar-right" id="toolbar-right">
-    <button class="toolbarButton" title="JavaScriptのプログラムコードを表示・保存します。" onclick="ugj_showCode()"><span class="fas">&#xf121</span> CODE</button>
-    <button class="toolbarButton" title="ワークスペースや設定を削除して最初から始めます。" onclick="ugj_newWorkspace()"><span class="fas">&#xf15b</span> 新規</button>
-    <button onclick="ugj_loadWorkspaceFromFile()" class="toolbarButton" title="ファイルに保存したブロックプログラムを読み込みます。既にワークスペースにあるブロックは削除されません。"><span class="fas">&#xf07c</span> 開く</button>
-    <button onclick="ugj_saveWorkspaceToFile()" class="toolbarButton" title="ワークスペースのブロックプログラムをファイルに保存します。"><span class="fas">&#xf0c7</span> 保存</button>
-    <button class="toolbarButton" title="ワークスペースのブロックプログラムを別名でファイルに保存します。" onclick="ugj_saveWorkspaceAs()"><span class="fas">&#xf24d</span> 別名</button>
-    <button class="toolbarButton" title="ブロックプログラムを実行します。" onclick="ugj_runCode()" id="runbtn"><span class="fas">&#xf144</span> 実行</button>
-<button class="iconbutton" title="アプリを再読み込みします。" onclick="location.reload()"><span class="fas redo">&#xf2f9</span></button>
-  </div>
-</div>
+  <!-- ツールボックス定義 -->
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="論理" css-icon="customIcon fas fa-random" categorystyle="logic_category">
+      <block type="controls_if"></block>
+      <block type="logic_compare">
+        <field name="OP">EQ</field>
+      </block>
+      <block type="logic_operation">
+        <field name="OP">AND</field>
+      </block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean">
+        <field name="BOOL">TRUE</field>
+      </block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
 
-<!-- Blockly -->
-<div id="blocklyArea"></div>
-<div id="blocklyDiv" style="position: absolute"></div>
-
-<!-- ディスプレイカラム（ビデオ・ターミナル表示） -->
-<div class="rightPane" id="dispColumn">
-  <div id="display_area"><canvas id="canvas" class="display" width="480" height="360"></canvas><canvas id="gcanvas" class="display" width="480" height="360"></canvas><video id="maindisplay" class="display" width="480" height="360" autoplay muted></video><video id="subdisplay" class="subdisplay" width="160" height="120" autoplay muted></video></div>
-  <pre id="blackboard" disabled></pre>
-<form name="inputForm" onsubmit="return false" autocomplete="off" id="inputForm">
-  <div class="inputDiv"><input type="text" id="inputBox"><div class="inputBtnDiv"><input type="submit" value="&#xf058" class="inputBtn"></div>
-  </div></form>
-</div>
-
-<!-- ツールボックス定義 -->
-<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-  <category name="論理" colour="%{BKY_LOGIC_HUE}"  iconclass="blocklyTreeIconCustom logic">
-    <label text="Logic" web-icon="&#xf074;" web-class="blocklyFlyoutHeading"></label>
+    <!-- <category name="論理">
     <block type="controls_if"></block>
     <block type="logic_compare">
       <field name="OP">EQ</field>
@@ -485,313 +501,315 @@ div.toolbar-right {
     <block type="logic_boolean">
       <field name="BOOL">TRUE</field>
     </block>
-  </category>
-  <category name="ループ" colour="%{BKY_LOOPS_HUE}" iconclass="blocklyTreeIconCustom loops">
-    <label text="Loops" web-icon="&#xf01e;" web-class="blocklyFlyoutHeading"></label>
-    <block type="controls_repeat_ext">
-      <value name="TIMES">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="controls_whileUntil">
-      <field name="MODE">WHILE</field>
-    </block>
-    <block type="ugj_control_for">
-      <field name="index" id="wcdXljeguV+HoJ=u4|_8">番号</field>
-      <field name="crease">increase</field>
-      <value name="from">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="to">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-      <value name="by">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_controls_forEach">
-      <field name="item" id="~!WaafBNY_R,9DB`?.cd" variabletype="">項目</field>
-    </block>
-    <block type="controls_flow_statements">
-      <field name="FLOW">BREAK</field>
-    </block>
-  </category>
-  <category name="数・計算" colour="%{BKY_MATH_HUE}" iconclass="blocklyTreeIconCustom math">
-    <label text="Math" web-icon="&#xf1ec;" web-class="blocklyFlyoutHeading"></label>
-    <block type="math_number">
-      <field name="NUM">0</field>
-    </block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_round">
-      <field name="OP">ROUND</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">3.1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_single">
-      <field name="OP">ROOT</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">9</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_modulo">
-      <value name="DIVIDEND">
-        <shadow type="math_number">
-          <field name="NUM">64</field>
-        </shadow>
-      </value>
-      <value name="DIVISOR">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_random_int">
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_random_float"></block>
-  </category>
-  <category name="文字列" colour="%{BKY_TEXTS_HUE}" iconclass="blocklyTreeIconCustom text">
-    <label text="Text" web-icon="&#xf031;" web-class="blocklyFlyoutHeading"></label>
-    <block type="text">
-      <field name="TEXT"></field>
-    </block>
-    <block type="text_print">
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">こんにちは！</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_join">
-      <mutation items="2"></mutation>
-    </block>
-    <block type="text_length">
-      <value name="VALUE">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_indexOf">
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR">text</field>
-        </block>
-      </value>
-      <value name="FIND">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_charAt">
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR">text</field>
-        </block>
-      </value>
-    </block>
-    <block type="text_getSubstring">
-      <value name="STRING">
-        <block type="variables_get">
-          <field name="VAR">text</field>
-        </block>
-      </value>
-    </block>
-  </category>
-  <category name="リスト" colour="%{BKY_LISTS_HUE}" iconclass="blocklyTreeIconCustom lists">
-    <label text="List" web-icon="&#xf0cb;" web-class="blocklyFlyoutHeading"></label>
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
-    </block>
-    <block type="lists_create_with">
-      <mutation items="3"></mutation>
-    </block>
-    <block type="lists_length"></block>
-    <block type="lists_isEmpty"></block>
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_getIndex">
-      <mutation statement="false" at="true"></mutation>
-      <field name="MODE">GET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_setIndex">
-      <mutation at="true"></mutation>
-      <field name="MODE">SET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="LIST">
-        <block type="variables_get">
-          <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_split">
-      <mutation mode="SPLIT"></mutation>
-      <field name="MODE">SPLIT</field>
-      <value name="DELIM">
-        <shadow type="text">
-          <field name="TEXT">,</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="lists_sort">
-      <field name="TYPE">NUMERIC</field>
-      <field name="DIRECTION">1</field>
-    </block>
-  </category>
-  <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE" iconclass="blocklyTreeIconCustom variables"></category>
-  <category name="関数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE" iconclass="blocklyTreeIconCustom functions"></category>
-  <sep></sep>
-  <category name="GPIO" colour="%{BKY_UGJ_GPIO_HUE}" iconclass="blocklyTreeIconCustom gpio">
-    <label text="GPIO" web-icon="&#xf2db;" web-class="blocklyFlyoutHeading"></label>
-    <label text="基本" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_gpio_start"></block>
-    <block type="ugj_gpio_stop"></block>
-    <block type="ugj_gpio_setoutput">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_write">
-      <value name="ugj_gpio_num">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="ugj_gpio_value">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_setinput">
-      <field name="updown">pi.PUD_DOWN</field>
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">4</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_read">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">4</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="パルス" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_gpio_setpwmfreqrange">
-      <field name="pwmfreq">50</field>
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_setpwmdutycycle">
-      <value name="dutycycle">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_servo">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">14</field>
-        </shadow>
-      </value>
-      <value name="pulsewidth">
-        <shadow type="math_number">
-          <field name="NUM">1500</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="シリアル" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_serial_openclose">
-      <field name="baud">9600</field>
-      <value name="tty">
-        <shadow type="text">
-          <field name="TEXT">/dev/serial0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_gpio_serialread">
-      <value name="count">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_serial_write">
-      <value name="data">
-        <shadow type="text_join">
-          <mutation items="2"></mutation>
-          <value name="ADD0">
-            <shadow type="text">
-              <field name="TEXT">ohayo-.</field>
-            </shadow>
-          </value>
-          <value name="ADD1">
-            <shadow type="ugj_text_cr"></shadow>
-          </value>
-        </shadow>
-      </value>
-    </block>
-    <label text="I2C" web-line="4.0" web-line-width="200"></label>
+  </category> -->
+    <category name="ループ" css-icon="customIcon fas fa-redo-alt" categorystyle="loop_category">
+      <label text="Loops" web-icon="&#xf01e;" web-class="blocklyFlyoutHeading"></label>
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil">
+        <field name="MODE">WHILE</field>
+      </block>
+      <block type="ugj_control_for">
+        <field name="index" id="wcdXljeguV+HoJ=u4|_8">番号</field>
+        <field name="crease">increase</field>
+        <value name="from">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="to">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="by">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_controls_forEach">
+        <field name="item" id="~!WaafBNY_R,9DB`?.cd" variabletype="">項目</field>
+      </block>
+      <block type="controls_flow_statements">
+        <field name="FLOW">BREAK</field>
+      </block>
+    </category>
+    <category name="数・計算" css-icon="customIcon fas fa-calculator" categorystyle="math_category">
+      <label text="Math" web-icon="&#xf1ec;" web-class="blocklyFlyoutHeading"></label>
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+      <block type="math_arithmetic">
+        <field name="OP">ADD</field>
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <field name="OP">ROUND</field>
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <field name="OP">ROOT</field>
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+    </category>
+    <category name="文字列" css-icon="customIcon fas fa-font" categorystyle="text_category">
+      <label text="Text" web-icon="&#xf031;" web-class="blocklyFlyoutHeading"></label>
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">こんにちは！</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_join">
+        <mutation items="2"></mutation>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="リスト" css-icon="customIcon fas fa-list-ol" categorystyle="list_category">
+      <label text="List" web-icon="&#xf0cb;" web-class="blocklyFlyoutHeading"></label>
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with">
+        <mutation items="3"></mutation>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <field name="END">FIRST</field>
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <mutation statement="false" at="true"></mutation>
+        <field name="MODE">GET</field>
+        <field name="WHERE">FROM_START</field>
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <mutation at="true"></mutation>
+        <field name="MODE">SET</field>
+        <field name="WHERE">FROM_START</field>
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR" id="3kh{pye%.qbQf]}y64q6" variabletype="">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <mutation mode="SPLIT"></mutation>
+        <field name="MODE">SPLIT</field>
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_sort">
+        <field name="TYPE">NUMERIC</field>
+        <field name="DIRECTION">1</field>
+      </block>
+    </category>
+    <category name="変数" css-icon="customIcon fas fa-bars" categorystyle="variable_category" custom="VARIABLE">
+    </category>
+    <category name="関数" css-icon="customIcon fas fa-yin-yang" categorystyle="procedure_category" custom="PROCEDURE">
+    </category>
+    <sep></sep>
+    <category name="GPIO" colour="%{BKY_UGJ_GPIO_HUE}" css-icon="customIcon fab fa-raspberry-pi">
+      <label text="GPIO" web-icon="&#xf2db;" web-class="blocklyFlyoutHeading"></label>
+      <label text="基本" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_gpio_start"></block>
+      <block type="ugj_gpio_stop"></block>
+      <block type="ugj_gpio_setoutput">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">20</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_write">
+        <value name="ugj_gpio_num">
+          <shadow type="math_number">
+            <field name="NUM">20</field>
+          </shadow>
+        </value>
+        <value name="ugj_gpio_value">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_setinput">
+        <field name="updown">pi.PUD_DOWN</field>
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">4</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_read">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">4</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="パルス" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_gpio_setpwmfreqrange">
+        <field name="pwmfreq">50</field>
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">20</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_setpwmdutycycle">
+        <value name="dutycycle">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">20</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_servo">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">14</field>
+          </shadow>
+        </value>
+        <value name="pulsewidth">
+          <shadow type="math_number">
+            <field name="NUM">1500</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="シリアル" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_serial_openclose">
+        <field name="baud">9600</field>
+        <value name="tty">
+          <shadow type="text">
+            <field name="TEXT">/dev/serial0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_gpio_serialread">
+        <value name="count">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_serial_write">
+        <value name="data">
+          <shadow type="text_join">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <shadow type="text">
+                <field name="TEXT">ohayo-.</field>
+              </shadow>
+            </value>
+            <value name="ADD1">
+              <shadow type="ugj_text_cr"></shadow>
+            </value>
+          </shadow>
+        </value>
+      </block>
+      <label text="I2C" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_gpio_i2copen">
         <value name="i2c_addr">
           <shadow type="math_number">
@@ -819,147 +837,147 @@ div.toolbar-right {
           </shadow>
         </value>
       </block>
-    <label text="センサー" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_dht">
-      <field name="type">11</field>
-      <field name="temperature" id="b4bG/!B(8TP1=sB,OJjw" variabletype="">気温</field>
-      <field name="humidity" id="yh}5iLSHLiaNg8BpL|zd" variabletype="">湿度</field>
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">4</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="Extra" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_gpio_sleep">
-      <field name="sec">1</field>
-    </block>
-    <label text="" web-line="4.0" web-line-width="200"></label>
-  </category>
-  <category name="マルチメディア" colour="%{BKY_UGJ_MULTIMEDIA_HUE}" iconclass="blocklyTreeIconCustom multimedia">
-    <label text="Multimedia" web-icon="&#xf11b;" web-class="blocklyFlyoutHeading"></label>
-    <label text="キャンバス" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_canvas_init"></block>
-    <block type="ugj_canvas_clearrect">
-      <value name="x">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="y">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="w">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="h">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_canvas_width"></block>
-    <block type="ugj_canvas_height"></block>
-    <block type="ugj_canvas_drawcircle">
-      <value name="x">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="y">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="r">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-      <value name="color">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#9999ff</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_canvas_drawrect">
+      <label text="センサー" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_dht">
+        <field name="type">11</field>
+        <field name="temperature" id="b4bG/!B(8TP1=sB,OJjw" variabletype="">気温</field>
+        <field name="humidity" id="yh}5iLSHLiaNg8BpL|zd" variabletype="">湿度</field>
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">4</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="Extra" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_gpio_sleep">
+        <field name="sec">1</field>
+      </block>
+      <label text="" web-line="4.0" web-line-width="200"></label>
+    </category>
+    <category name="マルチメディア" colour="%{BKY_UGJ_MULTIMEDIA_HUE}" css-icon="customIcon fas fa-calculator">
+      <label text="Multimedia" web-icon="&#xf11b;" web-class="blocklyFlyoutHeading"></label>
+      <label text="キャンバス" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_canvas_init"></block>
+      <block type="ugj_canvas_clearrect">
         <value name="x">
-        <shadow type="math_number">
+          <shadow type="math_number">
             <field name="NUM">0</field>
-        </shadow>
+          </shadow>
         </value>
         <value name="y">
-        <shadow type="math_number">
+          <shadow type="math_number">
             <field name="NUM">0</field>
-        </shadow>
+          </shadow>
         </value>
         <value name="w">
-        <shadow type="math_number">
+          <shadow type="math_number">
             <field name="NUM">100</field>
-        </shadow>
+          </shadow>
         </value>
         <value name="h">
-        <shadow type="math_number">
+          <shadow type="math_number">
             <field name="NUM">100</field>
-        </shadow>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_canvas_width"></block>
+      <block type="ugj_canvas_height"></block>
+      <block type="ugj_canvas_drawcircle">
+        <value name="x">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="y">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="r">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
         </value>
         <value name="color">
-        <shadow type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-        </shadow>
+          <shadow type="colour_picker">
+            <field name="COLOUR">#9999ff</field>
+          </shadow>
         </value>
-    </block>
-    <block type="ugj_canvas_loadimg">
-      <value name="imgfilename">
-        <shadow type="text">
-          <field name="TEXT">photo.jpg</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_canvas_finalize"></block>
-    <label text="イベント" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_event_key">
-      <field name="key" id="MRLP/?IZ:[U}[AV@bf6%" variabletype="">キー</field>
-      <field name="updown">keydown</field>
-    </block>
-    <label text="色" web-line="4.0" web-line-width="200"></label>
-    <block type="colour_random"></block>
-    <block type="colour_rgb">
-      <value name="RED">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="GREEN">
-        <shadow type="math_number">
-          <field name="NUM">50</field>
-        </shadow>
-      </value>
-      <value name="BLUE">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="サウンド" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_sound_play">
-      <field name="sound">meow</field>
-    </block>
-    <block type="ugj_multimedia_webspeech_recognition">
-      <field name="transcript" id="=3;~1sjv_R.pRhO)=wQY" variabletype="">ことば</field>
-      <field name="continuous">once</field>
-      <field name="interim">TRUE</field>
-    </block>
-    <!-- <block type="ugj_multimedia_cloudspeech_recognition">
+      </block>
+      <block type="ugj_canvas_drawrect">
+        <value name="x">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="y">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="w">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="h">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="color">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_canvas_loadimg">
+        <value name="imgfilename">
+          <shadow type="text">
+            <field name="TEXT">photo.jpg</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_canvas_finalize"></block>
+      <label text="イベント" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_event_key">
+        <field name="key" id="MRLP/?IZ:[U}[AV@bf6%" variabletype="">キー</field>
+        <field name="updown">keydown</field>
+      </block>
+      <label text="色" web-line="4.0" web-line-width="200"></label>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="サウンド" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_sound_play">
+        <field name="sound">meow</field>
+      </block>
+      <block type="ugj_multimedia_webspeech_recognition">
+        <field name="transcript" id="=3;~1sjv_R.pRhO)=wQY" variabletype="">ことば</field>
+        <field name="continuous">once</field>
+        <field name="interim">TRUE</field>
+      </block>
+      <!-- <block type="ugj_multimedia_cloudspeech_recognition">
       <field name="transcript" id="=3;~1sjv_R.pRhO)=wQY" variabletype="">ことば</field>
       <field name="continuous">once</field>
       <field name="interim">TRUE</field>
     </block> -->
-    <!-- <label text="顔認識" web-line="4.0" web-line-width="200"></label>
+      <!-- <label text="顔認識" web-line="4.0" web-line-width="200"></label>
     <block type="ugj_library_load">
       <value name="lib">
         <shadow type="ugj_face_library"></block>
@@ -980,792 +998,823 @@ div.toolbar-right {
         </shadow>
       </value>
     </block> -->
-    <label text="画像認識" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_library_load">
-      <value name="lib">
-        <shadow type="ugj_library_tensorflow"></shadow>
-      </value>
-    </block>
-    <block type="ugj_tfpredict_init"></block>
-    <block type="ugj_tfpredict_loadmodel"></block>
-    <block type="ugj_tfpredict_predict">
-      <field name="result" id="!=~_{T-;nZXP-rWM|beL" variabletype="">結果</field>
-    </block>
-    <label text="" web-line="4.0" web-line-width="200"></label>
-  </category>
+      <label text="画像認識" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_library_load">
+        <value name="lib">
+          <shadow type="ugj_library_tensorflow"></shadow>
+        </value>
+      </block>
+      <block type="ugj_tfpredict_init"></block>
+      <block type="ugj_tfpredict_loadmodel"></block>
+      <block type="ugj_tfpredict_predict">
+        <field name="result" id="!=~_{T-;nZXP-rWM|beL" variabletype="">結果</field>
+      </block>
+      <label text="" web-line="4.0" web-line-width="200"></label>
+    </category>
 
-  <category name="ネットワーク" colour="%{BKY_UGJ_NETWORK_HUE}"iconclass="blocklyTreeIconCustom network">
-    <label text="Network" web-icon="&#xf1eb;" web-class="blocklyFlyoutHeading"></label>
-    <label text="基本" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_network_axios_geturl">
-      <value name="url">
-        <shadow type="text">
-          <field name="TEXT">http://www.yahoo.co.jp/</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_network_sendmail">
-      <value name="from">
-        <shadow type="text">
-          <field name="TEXT">from@ocoge.club</field>
-        </shadow>
-      </value>
-      <value name="to">
-        <shadow type="text">
-          <field name="TEXT">to@example.com</field>
-        </shadow>
-      </value>
-      <value name="subject">
-        <shadow type="text">
-          <field name="TEXT">おはよう</field>
-        </shadow>
-      </value>
-      <value name="text">
-        <shadow type="text">
-          <field name="TEXT">朝ですよ</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="サーバー" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_network_httpserver">
-      <field name="URL" id="fIVY=P=^1=p?6=+h:,Dt" variabletype="">url</field>
-      <value name="response">
-        <shadow type="text">
-          <field name="TEXT">オコゲ</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="リモートGPIO" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_gpio_start_remote">
-      <value name="host">
-        <shadow type="text">
-          <field name="TEXT">192.168.0.229</field>
-        </shadow>
-      </value>
-    </block>
-    <label text="ウェブチャット" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_library_load" disabled="true">
-      <value name="lib">
-        <shadow type="ugj_library_skyway"></shadow>
-      </value>
-    </block>
-    <block type="ugj_webchat"></block>
-    <block type="ugj_getusermedia"></block>
-    <block type="ugj_skyway_newpeer">
-      <field name="my_id">自分のID</field>
-    </block>
-    <block type="ugj_skyway_called"></block>
-    <block type="ugj_skyway_events">
-      <field name="remote_id" id="0H.)5,:R#6)mx{rc2O.6" variabletype="">相手のID</field>
-    </block>
-    <block type="ugj_skyway_eventopen"></block>
-    <block type="ugj_skyway_eventdata">
-      <field name="data" id="q[DF.B~59aE(90^posFt" variabletype="">発言</field>
-    </block>
-    <block type="ugj_skyway_eventsend">
-      <field name="data" id="vN/_]nnKA$wVHSxh2_9f" variabletype="">内容</field>
-    </block>
-    <label text="" web-line="4.0" web-line-width="200"></label>
-  </category>
-  <category name="特殊" colour="%{BKY_UGJ_SPECIAL_HUE}" iconclass="blocklyTreeIconCustom special">
-    <label text="Special" web-icon="&#xf1e6;" web-class="blocklyFlyoutHeading"></label>
-    <label text="出入力" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_canvas_say">
-      <value name="say">
-        <shadow type="text">
-          <field name="TEXT">コンニチワ！</field>
-        </shadow>
-      </value>
-      <value name="sec">
-        <shadow type="math_number">
-          <field name="NUM">2</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_event_answer">
-      <field name="answer" id="_m@Uj#wHnIuGJNVwdUR+" variabletype="">答え</field>
-      <value name="question">
-        <shadow type="text">
-          <field name="TEXT">お名前は？</field>
-        </shadow>
-      </value>
-      <value name="sec">
-        <shadow type="math_number">
-          <field name="NUM">5</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_blackboard_show"></block>
-    <block type="ugj_blackboard_write">
-      <field name="style">normal</field>
-      <field name="line">new</field>
-      <field name="cursor">FALSE</field>
-      <value name="text">
-        <shadow type="text">
-          <field name="TEXT">コンニチワ！</field>
-        </shadow>
-      </value>
-      <value name="color">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#ccffff</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_blackboard_content"></block>
-    <block type="ugj_clearblackboard"></block>
-    <block type="ugj_control_button">
-      <field name="title" id="j{fM0uCAB9~3y=|~dd?:" variabletype="">ツールチップ</field>
-      <value name="label">
-        <shadow type="text">
-          <field name="TEXT">ボタン1</field>
-        </shadow>
-      </value>
-      <value name="textcolor">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#ffffff</field>
-        </shadow>
-      </value>
-      <value name="bgcolor">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#00cccc</field>
-        </shadow>
-      </value>
-      <value name="title">
-        <shadow type="text">
-          <field name="TEXT">データの保存に使えます。</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_localstorage_save">
-      <value name="keyValue">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-      <value name="keyName">
-        <shadow type="text">
-          <field name="TEXT">storage</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_localstorage_load">
-      <value name="keyName">
-        <shadow type="text">
-          <field name="TEXT">storage</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_localstorage_keylist"></block>
-    <label text="制御" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_sleep">
-      <value name="sec">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_set_timeout">
-      <value name="sec">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_set_interval">
-      <value name="sec">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_special_clearinterval"></block>
-    <label text="プロセス" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_spawnsync">
-      <field name="data" id="^B.zQ~+BcS!dKNmb,+AX" variabletype="">実行結果</field>
-    </block>
-    <block type="ugj_spawn">
-      <field name="data" id=")H{jxG09B6}[PcO%4H1d" variabletype="">データ</field>
-    </block>
-    <block type="ugj_child_julius"></block>
-    <block type="ugj_child_openjtalk">
-      <field name="voice">m001</field>
-      <value name="talk">
-        <shadow type="text">
-          <field name="TEXT">こんにちは！</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_facepy">
-      <field name="win"> </field>
-    </block>
-    <block type="ugj_child_gesture"></block>
-    <block type="ugj_child_irrecord">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">23</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_irplayback">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">22</field>
-        </shadow>
-      </value>
-      <value name="signal">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_irrcvr">
-      <value name="gpio">
-        <shadow type="math_number">
-          <field name="NUM">23</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_fswebcam">
-      <value name="filename">
-        <shadow type="text">
-          <field name="TEXT">photo.jpg</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_oledtext">
-      <value name="line1">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-      <value name="line2">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-      <value name="line3">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-      <value name="line4">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_testpy"></block>
-    <block type="ugj_child_testjs"></block>
-    <label text="特殊記号" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_text_cr"></block>
-    <block type="ugj_text_lf"></block>
-    <block type="ugj_text_cursor"></block>
-    <label text="特殊" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_socket">
-      <field name="data" id="Y^@?sd}wN]H+nmK=[{wL" variabletype="">受信データ</field>
-      <value name="host">
-        <shadow type="text">
-          <field name="TEXT">localhost</field>
-        </shadow>
-      </value>
-      <value name="port">
-        <shadow type="math_number">
-          <field name="NUM">23</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_socket_write">
-      <value name="cmd">
-        <shadow type="text">
-          <field name="TEXT">Hello</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_file_readsync">
-      <field name="encoding">utf8</field>
-      <value name="filename">
-        <shadow type="text">
-          <field name="TEXT">example.txt</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="ugj_child_debug">
-      <value name="cmd"></block>
-    <label text="" web-line="4.0" web-line-width="200"></label>
-  </category>
-</xml>
+    <category name="ネットワーク" colour="%{BKY_UGJ_NETWORK_HUE}" css-icon="customIcon fas fa-wifi">
+      <label text="Network" web-icon="&#xf1eb;" web-class="blocklyFlyoutHeading"></label>
+      <label text="基本" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_network_axios_geturl">
+        <value name="url">
+          <shadow type="text">
+            <field name="TEXT">http://www.yahoo.co.jp/</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_network_sendmail">
+        <value name="from">
+          <shadow type="text">
+            <field name="TEXT">from@ocoge.club</field>
+          </shadow>
+        </value>
+        <value name="to">
+          <shadow type="text">
+            <field name="TEXT">to@example.com</field>
+          </shadow>
+        </value>
+        <value name="subject">
+          <shadow type="text">
+            <field name="TEXT">おはよう</field>
+          </shadow>
+        </value>
+        <value name="text">
+          <shadow type="text">
+            <field name="TEXT">朝ですよ</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="サーバー" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_network_httpserver">
+        <field name="URL" id="fIVY=P=^1=p?6=+h:,Dt" variabletype="">url</field>
+        <value name="response">
+          <shadow type="text">
+            <field name="TEXT">オコゲ</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="リモートGPIO" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_gpio_start_remote">
+        <value name="host">
+          <shadow type="text">
+            <field name="TEXT">192.168.0.229</field>
+          </shadow>
+        </value>
+      </block>
+      <label text="ウェブチャット" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_library_load" disabled="true">
+        <value name="lib">
+          <shadow type="ugj_library_skyway"></shadow>
+        </value>
+      </block>
+      <block type="ugj_webchat"></block>
+      <block type="ugj_getusermedia"></block>
+      <block type="ugj_skyway_newpeer">
+        <field name="my_id">自分のID</field>
+      </block>
+      <block type="ugj_skyway_called"></block>
+      <block type="ugj_skyway_events">
+        <field name="remote_id" id="0H.)5,:R#6)mx{rc2O.6" variabletype="">相手のID</field>
+      </block>
+      <block type="ugj_skyway_eventopen"></block>
+      <block type="ugj_skyway_eventdata">
+        <field name="data" id="q[DF.B~59aE(90^posFt" variabletype="">発言</field>
+      </block>
+      <block type="ugj_skyway_eventsend">
+        <field name="data" id="vN/_]nnKA$wVHSxh2_9f" variabletype="">内容</field>
+      </block>
+      <label text="" web-line="4.0" web-line-width="200"></label>
+    </category>
+    <category name="特殊" colour="%{BKY_UGJ_SPECIAL_HUE}" css-icon="customIcon fas fa-plug">
+      <label text="Special" web-icon="&#xf1e6;" web-class="blocklyFlyoutHeading"></label>
+      <label text="出入力" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_canvas_say">
+        <value name="say">
+          <shadow type="text">
+            <field name="TEXT">コンニチワ！</field>
+          </shadow>
+        </value>
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">2</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_event_answer">
+        <field name="answer" id="_m@Uj#wHnIuGJNVwdUR+" variabletype="">答え</field>
+        <value name="question">
+          <shadow type="text">
+            <field name="TEXT">お名前は？</field>
+          </shadow>
+        </value>
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_blackboard_show"></block>
+      <block type="ugj_blackboard_write">
+        <field name="style">normal</field>
+        <field name="line">new</field>
+        <field name="cursor">FALSE</field>
+        <value name="text">
+          <shadow type="text">
+            <field name="TEXT">コンニチワ！</field>
+          </shadow>
+        </value>
+        <value name="color">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ccffff</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_blackboard_content"></block>
+      <block type="ugj_clearblackboard"></block>
+      <block type="ugj_control_button">
+        <field name="title" id="j{fM0uCAB9~3y=|~dd?:" variabletype="">ツールチップ</field>
+        <value name="label">
+          <shadow type="text">
+            <field name="TEXT">ボタン1</field>
+          </shadow>
+        </value>
+        <value name="textcolor">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ffffff</field>
+          </shadow>
+        </value>
+        <value name="bgcolor">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#00cccc</field>
+          </shadow>
+        </value>
+        <value name="title">
+          <shadow type="text">
+            <field name="TEXT">データの保存に使えます。</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_localstorage_save">
+        <value name="keyValue">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+        <value name="keyName">
+          <shadow type="text">
+            <field name="TEXT">storage</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_localstorage_load">
+        <value name="keyName">
+          <shadow type="text">
+            <field name="TEXT">storage</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_localstorage_keylist"></block>
+      <label text="制御" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_sleep">
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_set_timeout">
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_set_interval">
+        <value name="sec">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_special_clearinterval"></block>
+      <label text="プロセス" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_spawnsync">
+        <field name="data" id="^B.zQ~+BcS!dKNmb,+AX" variabletype="">実行結果</field>
+      </block>
+      <block type="ugj_spawn">
+        <field name="data" id=")H{jxG09B6}[PcO%4H1d" variabletype="">データ</field>
+      </block>
+      <block type="ugj_child_julius"></block>
+      <block type="ugj_child_openjtalk">
+        <field name="voice">m001</field>
+        <value name="talk">
+          <shadow type="text">
+            <field name="TEXT">こんにちは！</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_facepy">
+        <field name="win"> </field>
+      </block>
+      <block type="ugj_child_gesture"></block>
+      <block type="ugj_child_irrecord">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">23</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_irplayback">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">22</field>
+          </shadow>
+        </value>
+        <value name="signal">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_irrcvr">
+        <value name="gpio">
+          <shadow type="math_number">
+            <field name="NUM">23</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_fswebcam">
+        <value name="filename">
+          <shadow type="text">
+            <field name="TEXT">photo.jpg</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_oledtext">
+        <value name="line1">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+        <value name="line2">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+        <value name="line3">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+        <value name="line4">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_testpy"></block>
+      <block type="ugj_child_testjs"></block>
+      <label text="特殊記号" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_text_cr"></block>
+      <block type="ugj_text_lf"></block>
+      <block type="ugj_text_cursor"></block>
+      <label text="特殊" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_socket">
+        <field name="data" id="Y^@?sd}wN]H+nmK=[{wL" variabletype="">受信データ</field>
+        <value name="host">
+          <shadow type="text">
+            <field name="TEXT">localhost</field>
+          </shadow>
+        </value>
+        <value name="port">
+          <shadow type="math_number">
+            <field name="NUM">23</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_socket_write">
+        <value name="cmd">
+          <shadow type="text">
+            <field name="TEXT">Hello</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_file_readsync">
+        <field name="encoding">utf8</field>
+        <value name="filename">
+          <shadow type="text">
+            <field name="TEXT">example.txt</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="ugj_child_debug">
+        <value name="cmd">
+      </block>
+      <label text="" web-line="4.0" web-line-width="200"></label>
+    </category>
+  </xml>
 
-<script src="./pxt-blockly/blockly_compressed.js"></script>
-<script src="./pxt-blockly/javascript_compressed.js"></script>
-<script src="./pxt-blockly/blocks_compressed.js"></script>
-<script src="./scripts/custom-dialog.js"></script>
-<script src="./scripts/ugj_blocks.js"></script>
-<script src="./scripts/ja.js"></script>
-<script src="./scripts/beautify.min.js"></script>
-<script src="./scripts/prettify.js"></script>
-<script src="./.shared/skyway_key.js"></script>
-<script>
-const testfunc = () => { elec.openURL('http://ocoge.club');
-}
-//============ User Customize ===============
-// Customize messages
-// Blockly.Msg["CONTROLS_IF_MSG_IF"] = "もし";
-// Blockly.Msg["CONTROLS_IF_MSG_ELSE"] = "でなければ";
-// Blockly.Msg["CONTROLS_IF_MSG_ELSEIF"] = "ではなくもし";
-Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "なら";
-// Blockly.Msg["CONTROLS_REPEAT_INPUT_DO"] = "";
-// Blockly.Msg["MATH_CHANGE_TITLE"] = "変数 %1 を %2 増やす";
-Blockly.Msg["VARIABLES_SET"] = "変数 %1 を %2 にする";
-Blockly.Msg["TEXT_PRINT_TITLE"] = "ダイアログに %1 を表示";
+  <script src="./google-blockly/blockly_compressed.js"></script>
+  <script src="./google-blockly/javascript_compressed.js"></script>
+  <script src="./google-blockly/blocks_compressed.js"></script>
+  <script src="./google-blockly/msg/js/ja.js"></script>
+  <script src="./scripts/custom-dialog.js"></script>
+  <script src="./scripts/ugj_blocks.js"></script>
+  <script src="./scripts/beautify.min.js"></script>
+  <script src="./scripts/prettify.js"></script>
+  <script src="./.shared/skyway_key.js"></script>
+  <script>
+    const testfunc = () => {
+      elec.openURL('http://ocoge.club');
+    }
+    //============ User Customize Start ===============
+    // Customize messages
+    Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "ならば";
+    Blockly.Msg["CONTROLS_REPEAT_INPUT_DO"] = "";
+    Blockly.Msg["MATH_CHANGE_TITLE"] = "変数 %1 を %2 増やす";
+    Blockly.Msg["VARIABLES_SET"] = "変数 %1 を %2 にする";
+    Blockly.Msg["TEXT_PRINT_TITLE"] = "ダイアログに %1 を表示";
 
-// Customize block color
-Blockly.Msg.LOGIC_HUE = "#FFBF00";
-Blockly.Msg.LOOPS_HUE = "#FFAB19";
-Blockly.Msg.MATH_HUE = "#59C059";
-Blockly.Msg.TEXTS_HUE = "#4CBFE6";
-Blockly.Msg.LISTS_HUE = "#FF661A";
-Blockly.Msg.COLOUR_HUE = "#CF63CF";
-Blockly.Msg.VARIABLES_HUE = "#FF8C1A";
-// Blockly.Msg.VARIABLES_DYNAMIC_HUE
-Blockly.Msg.PROCEDURES_HUE = "#9966FF"
-// Define UGJ block colour
-Blockly.Msg.UGJ_GPIO_HUE = "#FF7799";//FF6680
-Blockly.Msg.UGJ_MULTIMEDIA_HUE = "#CF63CF";
-Blockly.Msg.UGJ_SPECIAL_HUE = "#0FBD8C";
-Blockly.Msg.UGJ_NETWORK_HUE = "#54C4EA";
+    // Block color
+    Blockly.HSV_SATURATION = 0.55;
+    Blockly.HSV_VALUE = 0.75;
+    Blockly.Msg.UGJ_GPIO_HUE = 0;//FF7799
+    Blockly.Msg.UGJ_MULTIMEDIA_HUE = 240;//CF63CF
+    Blockly.Msg.UGJ_NETWORK_HUE = 340;//"#54C4EA"
+    Blockly.Msg.UGJ_SPECIAL_HUE = 20;//"#0FBD8C"
 
-//canvasの準備
-const ugj_canvasImg = imgSrc => {
-  let el = document.getElementById('canvas');
-  let ctx = el.getContext('2d');
-  let img = new Image();
-  img.src = imgSrc;
-  img.onload = () => ctx.drawImage(img, 140, 80);
-  // img.onload = () => ctx.drawImage(img, 120, 0);
-};
-// マスコット
-ugj_canvasImg("./img/mimmy.png?" + new Date().getTime()); // ミミィ
-// ugj_canvasImg("./img/cogechee.png?" + new Date().getTime()); // こげちー
+    // Customize Toolbox
+    class CustomCategory extends Blockly.ToolboxCategory {
+      /** Constructor for a custom category. @override */
+      constructor(categoryDef, toolbox, opt_parent) {
+        super(categoryDef, toolbox, opt_parent);
+      }
+      /** @override */
+      addColourBorder_(colour) {
+        this.rowDiv_.style.backgroundColor = colour;
+      }
+      /** @override */
+      setSelected(isSelected) {
+        // We do not store the label span on the category, so use getElementsByClassName.
+        var labelDom = this.rowDiv_.getElementsByClassName('blocklyTreeLabel')[0];
+        if (isSelected) {
+          // Change the background color of the div to white.
+          this.rowDiv_.style.backgroundColor = 'white';
+          // Set the colour of the text to the colour of the category.
+          labelDom.style.color = this.colour_;
+          this.iconDom_.style.color = this.colour_;
+        } else {
+          // Set the background back to the original colour.
+          this.rowDiv_.style.backgroundColor = this.colour_;
+          // Set the text back to white.
+          labelDom.style.color = 'white';
+          this.iconDom_.style.color = 'white';
+        }
+        // This is used for accessibility purposes.
+        Blockly.utils.aria.setState(/** @type {!Element} */(this.htmlDiv_),
+          Blockly.utils.aria.State.SELECTED, isSelected);
+      }
+    }
+    Blockly.registry.register(
+      Blockly.registry.Type.TOOLBOX_ITEM,
+      Blockly.ToolboxCategory.registrationName,
+      CustomCategory, true);
+    //============ User Customize End ===============
 
-// HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
-ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部
-ugjel_blackboard = document.getElementById('blackboard'); // 黒板
-ugjel_inputForm = document.getElementById('inputForm'); // 入力フォーム
-ugjel_inputBox = document.getElementById('inputBox'); // 入力フィールド
 
-// その他のプロパティ
-ugj_inputEvLstnrID = 0; // 入力フォームの動的イベントリスナの最新のID
-ugj_sounds = (names => { // サウンドファイルのいろいろの配列の初期化
-  let sounds = [];
-  names.forEach( value => {
-    let filepath = `./sounds/${value}.wav`;
-    sounds[value] = {'file': filepath, 'audio': new Audio(filepath)};
-  });
-  return sounds;
-})(['meow', 'bounce', 'type_chime', 'type_dink', 'type_tap', 'type_space', 'type_return']); // サウンドファイルのベース名のリスト
+    //canvasの準備
+    const ugj_canvasBgImg = imgSrc => {
+      let el = document.getElementById('canvas_bg');
+      let ctx = el.getContext('2d');
+      let img = new Image();
+      img.src = imgSrc;
+      // img.onload = () => ctx.drawImage(img, 140, 80); // ミミィ
+      img.onload = () => ctx.drawImage(img, 140, 0); // こげちー
+    };
+    // マスコット
+    // ugj_canvasBgImg("./img/mimmy.png?" + new Date().getTime()); // ミミィ
+    ugj_canvasBgImg("./img/cogechee.png?" + new Date().getTime()); // こげちー
 
-// メソッド
+    // HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
+    ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部
+    ugjel_blackboard = document.getElementById('blackboard'); // 黒板
+    ugjel_inputForm = document.getElementById('inputForm'); // 入力フォーム
+    ugjel_inputBox = document.getElementById('inputBox'); // 入力フィールド
 
-// サウンド再生 - 連続再生のため、再生開始後すぐにオーディオ要素を再生成する
-const ugj_soundPlay = soundName => {
-  ugj_sounds[soundName]['audio'].play();
-  ugj_sounds[soundName]['audio'] = new Audio(ugj_sounds[soundName]['file']);
-};
+    // その他のプロパティ
+    ugj_inputEvLstnrID = 0; // 入力フォームの動的イベントリスナの最新のID
+    ugj_sounds = (names => { // サウンドファイルのいろいろの配列の初期化
+      let sounds = [];
+      names.forEach(value => {
+        let filepath = `./sounds/${value}.wav`;
+        sounds[value] = { 'file': filepath, 'audio': new Audio(filepath) };
+      });
+      return sounds;
+    })(['meow', 'bounce', 'type_chime', 'type_dink', 'type_tap', 'type_space', 'type_return']); // サウンドファイルのベース名のリスト
 
-// OK,Cancel ２択のダイアログを表示
-const ugj_confirm = (title, message, callback) => {
-  CustomDialog.show(title, message, {
-    showOkay: true,
-    onOkay: () => callback(true),
-    showCancel: true,
-    onCancel: () => callback(false)
-  });
-};
+    // メソッド
 
-const ugj_htmlEntities = str =>// HTMLエンティティのエスケープ
-  String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');//.replace(/&/g, '&amp;').replace(/ /g, '&nbsp;');
+    // サウンド再生 - 連続再生のため、再生開始後すぐにオーディオ要素を再生成する
+    const ugj_soundPlay = soundName => {
+      ugj_sounds[soundName]['audio'].play();
+      ugj_sounds[soundName]['audio'] = new Audio(ugj_sounds[soundName]['file']);
+    };
 
-// 新規ワークスペース
-const ugj_newWorkspace = () => {
-  ugj_confirm('新規ワークスペース', '保存していない内容はすべて破棄されます。よろしいですか？', okey => {
-    if(okey) {
-      workspace.clear();
+    // OK,Cancel ２択のダイアログを表示
+    const ugj_confirm = (title, message, callback) => {
+      CustomDialog.show(title, message, {
+        showOkay: true,
+        onOkay: () => callback(true),
+        showCancel: true,
+        onCancel: () => callback(false)
+      });
+    };
+
+    const ugj_htmlEntities = str =>// HTMLエンティティのエスケープ
+      String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');//.replace(/&/g, '&amp;').replace(/ /g, '&nbsp;');
+
+    // 新規ワークスペース
+    const ugj_newWorkspace = () => {
+      ugj_confirm('新規ワークスペース', '保存していない内容はすべて破棄されます。よろしいですか？', okey => {
+        if (okey) {
+          workspace.clear();
+          elec.newFile();
+        }
+      });
+    }
+
+    // ワークスペースをファイルに保存・読込
+    const ugj_saveWorkspaceToFile = () => {
+      let xml = Blockly.Xml.workspaceToDom(workspace);
+      let xml_text = Blockly.Xml.domToText(xml);
+      if (elec.saveWsFile(xml_text) === false) {
+        alert('保存できませんでした。');
+      }
+    }
+    const ugj_loadWorkspaceFromFile = () => {
+      let xml_text = elec.loadWsFile();
+      if (xml_text.length > 0) {
+        let xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+      }
+    }
+
+    // ワークスペースを別名で保存
+    const ugj_saveWorkspaceAs = () => {
       elec.newFile();
+      ugj_saveWorkspaceToFile();
     }
-  });
-}
 
-// ワークスペースをファイルに保存・読込
-const ugj_saveWorkspaceToFile = () => {
-  let xml = Blockly.Xml.workspaceToDom(workspace);
-  let xml_text = Blockly.Xml.domToText(xml);
-  if(elec.saveWsFile(xml_text) === false) {
-    alert('保存できませんでした。');
-  }
-}
-const ugj_loadWorkspaceFromFile = () => {
-  let xml_text = elec.loadWsFile();
-  if (xml_text.length > 0) {
-    let xml = Blockly.Xml.textToDom(xml_text);
-    Blockly.Xml.domToWorkspace(xml, workspace);
-  }
-}
-
-// ワークスペースを別名で保存
-const ugj_saveWorkspaceAs = () => {
-  elec.newFile();
-  ugj_saveWorkspaceToFile();
-}
-
-// ワークスペースをローカルストレージに保存・読込
-const ugj_saveWorkspace = () => {
-  // Workspace
-  let xml = Blockly.Xml.workspaceToDom(workspace);
-  let xml_text = Blockly.Xml.domToText(xml);
-  localStorage.setItem("abrage.xml", xml_text);
-}
-const ugj_loadWorkspace = () => {
-  // Workspace
-  let xml_text = localStorage.getItem("abrage.xml");
-  if (xml_text.length != 0) {
-    let xml = Blockly.Xml.textToDom(xml_text);
-    Blockly.Xml.domToWorkspace(xml, workspace);
-  }
-}
-
-// ワークスペースからコードを生成して必要であれば整形処理をする
-const ugj_createCode = (args) => {
-  addAsync = args.async||false;
-  beautify = args.beautify||false;
-
-  let code = Blockly.JavaScript.workspaceToCode(workspace);
-
-  // 追加モジュールのrequire
-  let requires = [
-    ['_gpio_', false, `const pi = require('ocoge_pigpiod');\n`],
-    ['_axios_', false, `const axios = require('axios');\n`],
-    ['_sendmail', false, `const nodemailer = require('nodemailer');\n`],
-    ['_cloudspeech_', false, `const speech = require('@google-cloud/speech');\nconst recorder = require('node-record-lpcm16');\n` ],
-    ['_httpserver', false, `const http = require('http');\n` ],
-    ['_file_', false, `const fs = require('fs');\n`],
-    // ['_bme280', false, `const BME280 = require('bme280-sensor');`],
-    ['_dht', false, `const dht = require("node-dht-sensor").promises;`],
-    ['_socket_', false, `const net = require('net');`]
-  ];
-  let blockArray = workspace.getAllBlocks();
-  blockArray.forEach (value => {
-    for(var i=0,l=requires.length;i<l;i++) {
-      if (value.type.indexOf(requires[i][0]) >= 0) requires[i][1] = true;
+    // ワークスペースをローカルストレージに保存・読込
+    const ugj_saveWorkspace = () => {
+      // Workspace
+      let xml = Blockly.Xml.workspaceToDom(workspace);
+      let xml_text = Blockly.Xml.domToText(xml);
+      localStorage.setItem("abrage.xml", xml_text);
     }
-  });
-  for(var i=0,l=requires.length;i<l;i++) {
-    if (requires[i][1]) code = requires[i][2] + code;
-  }
-
-  // await使用のため、必要に応じてコード全体をasync付き即時関数でラップ
-  if (addAsync) {
-    code = [
-      '(async () => {',
-      code,
-      '})();'
-    ].join('\n');
-  }
-
-  // コードを綺麗に
-  if (beautify) code = js_beautify(code, {indent_size: 2});
-
-  return code;
-}
-
-// ブロックスクリプト実行
-const ugj_runCode = () => {
-  document.activeElement.blur(); //実行ボタンからフォーカスを外す：エンターキー押下が悪さをするため
-  let code = ugj_createCode({'async': true});
-  try {
-    eval(code);
-  } catch (e) {
-    alert(e);
-  }
-}
-
-// JavaScriptコードをダイアログで表示・保存
-// エレメントのオブジェクトとかコールバックとか
-// 色々この中で完結させてみる
-const ugj_showCode = () => {
-  const dialog = document.getElementById('codeDlg');
-  const content = document.getElementById('dlgContent');
-  const btn_close = document.getElementById('dlgClose');
-  const btn_export = document.getElementById('dlgExport');
-  const chkbox_cli = document.getElementById('dlgCli');
-
-  let code = ugj_createCode({'beautify': true});
-  code = ugj_htmlEntities(code);
-  content.innerHTML = PR.prettyPrintOne(code, 'js', true);
-
-  dialog.showModal();
-
-  const close_cb = () => {
-    dialog.close();
-    btn_close.removeEventListener('click', close_cb);
-    btn_export.removeEventListener('click', export_cb);
-  }
-  const export_cb = () => {
-    code = ugj_createCode({'async': true, 'beautify': true});
-  // blackboardWrite()をconsole.log()に書き換え、
-  // document... と ugj_... と elec... をコメントアウト（ブラウザ関連部分の追放という意味では不完全なので注意）
-    if (chkbox_cli.checked)
-      code = code.replace(/const appendDiv[^#]*\/\/#/gm, 'const blackboardWrite = text => console.log(text);').replace(/(^(?=.*document.)[^;]*;)/gm, '/* $1 */').replace(/(^(?=.*ugj_)[^;]*;)/gm, '/* $1 */').replace(/(^(?=.*elec.)[^;]*;)/gm, '/* $1 */');
-    if(elec.saveFile(code, 'js') === false) {
-      alert('保存できませんでした。');
+    const ugj_loadWorkspace = () => {
+      // Workspace
+      let xml_text = localStorage.getItem("abrage.xml");
+      if (xml_text.length != 0) {
+        let xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+      }
     }
-    close_cb();
-  }
-  btn_close.addEventListener('click', close_cb);
-  btn_export.addEventListener('click', export_cb);
-}
+
+    // ワークスペースからコードを生成して必要であれば整形処理をする
+    const ugj_createCode = (args) => {
+      addAsync = args.async || false;
+      beautify = args.beautify || false;
+
+      let code = Blockly.JavaScript.workspaceToCode(workspace);
+
+      // 追加モジュールのrequire
+      let requires = [
+        ['_gpio_', false, `const pi = require('ocoge_pigpiod');\n`],
+        ['_axios_', false, `const axios = require('axios');\n`],
+        ['_sendmail', false, `const nodemailer = require('nodemailer');\n`],
+        ['_cloudspeech_', false, `const speech = require('@google-cloud/speech');\nconst recorder = require('node-record-lpcm16');\n`],
+        ['_httpserver', false, `const http = require('http');\n`],
+        ['_file_', false, `const fs = require('fs');\n`],
+        // ['_bme280', false, `const BME280 = require('bme280-sensor');`],
+        ['_dht', false, `const dht = require("node-dht-sensor").promises;`],
+        ['_socket_', false, `const net = require('net');`]
+      ];
+      let blockArray = workspace.getAllBlocks();
+      blockArray.forEach(value => {
+        for (var i = 0, l = requires.length; i < l; i++) {
+          if (value.type.indexOf(requires[i][0]) >= 0) requires[i][1] = true;
+        }
+      });
+      for (var i = 0, l = requires.length; i < l; i++) {
+        if (requires[i][1]) code = requires[i][2] + code;
+      }
+
+      // await使用のため、必要に応じてコード全体をasync付き即時関数でラップ
+      if (addAsync) {
+        code = [
+          '(async () => {',
+          code,
+          '})();'
+        ].join('\n');
+      }
+
+      // コードを綺麗に
+      if (beautify) code = js_beautify(code, { indent_size: 2 });
+
+      return code;
+    }
+
+    // ブロックスクリプト実行
+    const ugj_runCode = () => {
+      document.activeElement.blur(); //実行ボタンからフォーカスを外す：エンターキー押下が悪さをするため
+      let code = ugj_createCode({ 'async': true });
+      try {
+        eval(code);
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+    // JavaScriptコードをダイアログで表示・保存
+    // エレメントのオブジェクトとかコールバックとか
+    // 色々この中で完結させてみる
+    const ugj_showCode = () => {
+      const dialog = document.getElementById('codeDlg');
+      const content = document.getElementById('dlgContent');
+      const btn_close = document.getElementById('dlgClose');
+      const btn_export = document.getElementById('dlgExport');
+      const chkbox_cli = document.getElementById('dlgCli');
+
+      let code = ugj_createCode({ 'beautify': true });
+      code = ugj_htmlEntities(code);
+      content.innerHTML = PR.prettyPrintOne(code, 'js', true);
+
+      dialog.showModal();
+
+      const close_cb = () => {
+        dialog.close();
+        btn_close.removeEventListener('click', close_cb);
+        btn_export.removeEventListener('click', export_cb);
+      }
+      const export_cb = () => {
+        code = ugj_createCode({ 'async': true, 'beautify': true });
+        // blackboardWrite()をconsole.log()に書き換え、
+        // document... と ugj_... と elec... をコメントアウト（ブラウザ関連部分の追放という意味では不完全なので注意）
+        if (chkbox_cli.checked)
+          code = code.replace(/const appendDiv[^#]*\/\/#/gm, 'const blackboardWrite = text => console.log(text);').replace(/(^(?=.*document.)[^;]*;)/gm, '/* $1 */').replace(/(^(?=.*ugj_)[^;]*;)/gm, '/* $1 */').replace(/(^(?=.*elec.)[^;]*;)/gm, '/* $1 */');
+        if (elec.saveFile(code, 'js') === false) {
+          alert('保存できませんでした。');
+        }
+        close_cb();
+      }
+      btn_close.addEventListener('click', close_cb);
+      btn_export.addEventListener('click', export_cb);
+    }
 
 
-// フキダシ
-ugj_fdTimeoutID = null;
-ugj_fdRecentBox = null;
-const ugj_fukidashi = (text, sec) => {
-  // Canvas Context
-  const context = document.getElementById('canvas').getContext('2d');
-  // 吹き出しを消去する関数
-  const clearFd = (x,y,w,h) => context.clearRect(x, y, w, h);
-  // 前回の思い出を忘れる
-  if (ugj_fdRecentBox !== null) {
-    clearFd(ugj_fdRecentBox.x,ugj_fdRecentBox.y,ugj_fdRecentBox.w,ugj_fdRecentBox.h);
-    clearTimeout(ugj_fdTimeoutID);
+    // フキダシ
+    ugj_fdTimeoutID = null;
     ugj_fdRecentBox = null;
-  }
+    const ugj_fukidashi = (text, sec) => {
+      // Canvas Context
+      const context = document.getElementById('canvas').getContext('2d');
+      // 吹き出しを消去する関数
+      const clearFd = (x, y, w, h) => context.clearRect(x, y, w, h);
+      // 前回の思い出を忘れる
+      if (ugj_fdRecentBox !== null) {
+        clearFd(ugj_fdRecentBox.x, ugj_fdRecentBox.y, ugj_fdRecentBox.w, ugj_fdRecentBox.h);
+        clearTimeout(ugj_fdTimeoutID);
+        ugj_fdRecentBox = null;
+      }
 
-    // 基本設定
-    let rtopX = 170; // フキダシ右上 X座標
-    let rtopY = 40; // フキダシ右上 Y座標
-    let boxWidth = 140;
-    let padding = 5;
-    let radius = 5;// 円弧の半径
+      // 基本設定
+      let rtopX = 170; // フキダシ右上 X座標
+      let rtopY = 40; // フキダシ右上 Y座標
+      let boxWidth = 140;
+      let padding = 5;
+      let radius = 5;// 円弧の半径
 
-    // 吹き出しの背景色
-    context.fillStyle = "#b7e6ff";
+      // 吹き出しの背景色
+      context.fillStyle = "#b7e6ff";
 
-    // テキスト設定
-    let limitedWidth = boxWidth - (padding * 2);
-    let size = 14;
-    context.font = size + "px ''";
+      // テキスト設定
+      let limitedWidth = boxWidth - (padding * 2);
+      let size = 14;
+      context.font = size + "px ''";
 
-    // テキスト調整　行に分解
-    let lineTextList = text.split("\n");
-    let newLineTextList = [];
-    lineTextList.forEach( (lineText) => {
+      // テキスト調整　行に分解
+      let lineTextList = text.split("\n");
+      let newLineTextList = [];
+      lineTextList.forEach((lineText) => {
         if (context.measureText(lineText).width > limitedWidth) {
-            characterList = lineText.split("");// 1文字ずつ分割
-            let preLineText = "";
-            lineText = "";
-            characterList.forEach( (character) => {
-                lineText += character;
-                if (context.measureText(lineText).width > limitedWidth) {
-                    newLineTextList.push(preLineText);
-                    lineText = character;
-                }
-                preLineText = lineText;
-            });
+          characterList = lineText.split("");// 1文字ずつ分割
+          let preLineText = "";
+          lineText = "";
+          characterList.forEach((character) => {
+            lineText += character;
+            if (context.measureText(lineText).width > limitedWidth) {
+              newLineTextList.push(preLineText);
+              lineText = character;
+            }
+            preLineText = lineText;
+          });
         }
         newLineTextList.push(lineText);
-    });
-    let lineLength = newLineTextList.length;
-
-    // 角丸
-    let width = boxWidth;// 枠の幅
-    let height = (size * lineLength) + (padding * 3); // 枠の高さ
-    let toRadianCoefficient = Math.PI / 180; // 角度からラジアンへの変換係数
-    // 角丸原点（左上座標）
-    let boxOrigin = {
-        "x" : rtopX - width,
-        "y" : rtopY,
-    }
-    // 円弧から円弧までの直線は自動で引かれます、角度は回り方によって変わります。
-    // arc(中心x, 中心y, 半径, 開始角度, 終了角度, 反時計回り)
-    context.beginPath();
-    context.arc(boxOrigin.x + radius, boxOrigin.y + radius, radius, 180 * toRadianCoefficient, 270 * toRadianCoefficient, false);// 左上
-    context.arc(boxOrigin.x + width - radius, boxOrigin.y + radius, radius, 270 * toRadianCoefficient, 0, false);// 右上
-    context.arc(boxOrigin.x + width - radius, boxOrigin.y + height - radius, radius, 0, 90 * toRadianCoefficient, false);// 右下
-    context.arc(boxOrigin.x + radius, boxOrigin.y + height - radius, radius, 90 * toRadianCoefficient, 180 * toRadianCoefficient, false);// 左下
-    context.closePath();
-    context.fill();
-
-    // 矢印（ヒゲ）
-    let arrow = {
-        "x" : rtopX - width/2 + 40,
-        "y" : rtopY + height + 10,
-        "width" : 10,
-        "height" : 10,
-    }
-    context.beginPath();
-    context.moveTo(arrow.x, arrow.y);
-    context.lineTo(arrow.x, arrow.y - arrow.height);
-    context.lineTo(arrow.x - arrow.width, arrow.y - arrow.height);
-    context.fill();
-
-    // テキスト描画
-    context.fillStyle = "#000000";
-    newLineTextList.forEach( (lineText, index) => {
-        context.fillText(lineText, boxOrigin.x + padding, boxOrigin.y + padding + (size * (index + 1)));
-    });
-
-  // 描画した吹き出しの位置情報を保存
-  ugj_fdRecentBox = {x:boxOrigin.x, y:boxOrigin.y, w:width, h:height+arrow.height};
-  // 指定時間後に消去（0以下で自動消去なし）
-  if (sec > 0) {
-    ugj_fdTimeoutID = setTimeout (() => {
-      clearFd(boxOrigin.x, boxOrigin.y, width, height+arrow.height);
-    }, sec*1000);
-  }
-
-    // return [boxOrigin.x, boxOrigin.y, width, height+arrow.height];
-// https://qiita.com/horikeso/items/95595f379a8dfa63c34a
-}
-
-//=====================================
-//======= Blockly GUI codes ===========
-// Use in a block or block definition:
-
-// Resizable workspace injection script
-var blocklyArea = document.getElementById('blocklyArea');
-var blocklyDiv = document.getElementById('blocklyDiv');
-// var workspace = Blockly.inject(blocklyDiv,
-//     {toolbox: document.getElementById('toolbox')});
-var workspace = Blockly.inject(blocklyDiv,
-  {
-    toolbox: document.getElementById('toolbox'),
-    
-    scrollbars : true,
-    grid: {
-      spacing: 20,
-      length: 1,
-      colour: '#888',
-      snap: true
-    },
-    zoom: {startScale: 0.75, controls: true},
-    trashcan: true,
-    media: './pxt-blockly/media/'
-  });
-var onresize = function (e) {
-  // Compute the absolute coordinates and dimensions of blocklyArea.
-  var element = blocklyArea;
-  var x = 0;
-  var y = 0;
-  do {
-    x += element.offsetLeft;
-    y += element.offsetTop;
-    element = element.offsetParent;
-  } while (element);
-  // Position blocklyDiv over blocklyArea.
-  blocklyDiv.style.left = x + 'px';
-  blocklyDiv.style.top = y + 'px';
-  blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-  blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-  Blockly.svgResize(workspace);
-};
-window.addEventListener('resize', onresize, false);
-onresize();
-Blockly.svgResize(workspace);
-//=====================================
-//=====================================
-
-
-// ワークスペースの未保存の変更のフラグ
-const ugj_wsUpdateCB = event => {
-  if (event.type != Blockly.Events.UI) {
-    elec.setWsChanged(true);
-  }
-}
-
-// ウィンドウロード・アンロード時
-window.onload = () => {
-  var menu = document.getElementById('conmenu');  //独自コンテキストメニュー
-  var area = document.getElementById('dlgContent');     //対象エリア
-  var body = document.body;                       //bodyエリア
-  body.oncontextmenu = () => false;
-  //右クリック時に独自コンテキストメニューを表示する
-  area.addEventListener('contextmenu',function(e){
-    menu.style.left = e.pageX + 'px';
-    menu.style.top = e.pageY + 'px';
-    menu.classList.add('on');
-  });
-  //左クリック時に独自コンテキストメニューを非表示にする
-  body.addEventListener('click',function(){
-    if(menu.classList.contains('on')){
-      menu.classList.remove('on');
-    }
-  });
-
-  // ワークスペースといくつかの環境のオートリストア
-  ugj_loadWorkspace();
-  elec.loadPrefsFromLS();
-  setTimeout(() => { // 環境設定のロードが終わってからイベントリスナを作成
-    workspace.addChangeListener(ugj_wsUpdateCB);
-  }, 100);
-}
-window.onbeforeunload = () => {
-  ugj_saveWorkspace();
-  elec.savePrefsToLS();
-}
-
-// Electron動作とブラウザ動作を自動で仕分け
-if (typeof require == 'function') {
-  // requireが使える = Electron
-  var elec = require('./scripts/eleclib');
-  console.log('elec loaded.');
-} else {
-  //ブラウザ動作
-  //requireのダミー
-  var require = (e) => {
-    alert(`この機能またはブロック [${e}] は web 版ではご利用になれません。\n詳しくはお問い合わせください。`);
-    // if (e=='elec' || e=='ocoge' || e=='child_process' || e=='@google-cloud/speech' || e=='nodemailer' || e=='fs' )
-    //   alert(`この機能またはブロックは web 版ではご利用になれません。\n詳しくはお問い合わせください。`);
-    // else return;
-  }
-  //elecを名前空間で置き換え
-  var elec = {};
-  elec.saveFile = () => require('elec');
-  elec.savePrefsToLS = () => {;}
-  elec.loadPrefsFromLS = () => {;}
-  elec.newFile = () => {;}
-  elec.setWsChanged = () => {;}
-
-  //ワークスペースのダウンロード
-  elec.saveWsFile = xml_text => {
-    let blob = new Blob([xml_text], {"type": "text/xml"});
-    const downLoadLink = document.createElement("a");
-    document.body.appendChild(downLoadLink);
-    downLoadLink.download = 'workspace.xml';
-    downLoadLink.href = URL.createObjectURL(blob);
-    downLoadLink.click();
-    downLoadLink.parentElement.removeChild(downLoadLink);
-    return true;
-  }
-  //ワークスペースのインポート
-  elec.loadWsFile = () => {
-    const fileInputEl = document.createElement('input');
-    document.body.appendChild(fileInputEl);
-    fileInputEl.type = 'file';
-    fileInputEl.addEventListener('change', ev => {
-      let reader = new FileReader();
-      reader.readAsText(ev.target.files[0]);
-      reader.addEventListener('load', () => {
-        let xml = Blockly.Xml.textToDom(reader.result);
-        Blockly.Xml.domToWorkspace(xml, workspace);
       });
-    });
-    fileInputEl.click();
-    fileInputEl.parentElement.removeChild(fileInputEl);
-    return '';
-  }
-}
+      let lineLength = newLineTextList.length;
+
+      // 角丸
+      let width = boxWidth;// 枠の幅
+      let height = (size * lineLength) + (padding * 3); // 枠の高さ
+      let toRadianCoefficient = Math.PI / 180; // 角度からラジアンへの変換係数
+      // 角丸原点（左上座標）
+      let boxOrigin = {
+        "x": rtopX - width,
+        "y": rtopY,
+      }
+      // 円弧から円弧までの直線は自動で引かれます、角度は回り方によって変わります。
+      // arc(中心x, 中心y, 半径, 開始角度, 終了角度, 反時計回り)
+      context.beginPath();
+      context.arc(boxOrigin.x + radius, boxOrigin.y + radius, radius, 180 * toRadianCoefficient, 270 * toRadianCoefficient, false);// 左上
+      context.arc(boxOrigin.x + width - radius, boxOrigin.y + radius, radius, 270 * toRadianCoefficient, 0, false);// 右上
+      context.arc(boxOrigin.x + width - radius, boxOrigin.y + height - radius, radius, 0, 90 * toRadianCoefficient, false);// 右下
+      context.arc(boxOrigin.x + radius, boxOrigin.y + height - radius, radius, 90 * toRadianCoefficient, 180 * toRadianCoefficient, false);// 左下
+      context.closePath();
+      context.fill();
+
+      // 矢印（ヒゲ）
+      let arrow = {
+        "x": rtopX - width / 2 + 40,
+        "y": rtopY + height + 10,
+        "width": 10,
+        "height": 10,
+      }
+      context.beginPath();
+      context.moveTo(arrow.x, arrow.y);
+      context.lineTo(arrow.x, arrow.y - arrow.height);
+      context.lineTo(arrow.x - arrow.width, arrow.y - arrow.height);
+      context.fill();
+
+      // テキスト描画
+      context.fillStyle = "#000000";
+      newLineTextList.forEach((lineText, index) => {
+        context.fillText(lineText, boxOrigin.x + padding, boxOrigin.y + padding + (size * (index + 1)));
+      });
+
+      // 描画した吹き出しの位置情報を保存
+      ugj_fdRecentBox = { x: boxOrigin.x, y: boxOrigin.y, w: width, h: height + arrow.height };
+      // 指定時間後に消去（0以下で自動消去なし）
+      if (sec > 0) {
+        ugj_fdTimeoutID = setTimeout(() => {
+          clearFd(boxOrigin.x, boxOrigin.y, width, height + arrow.height);
+        }, sec * 1000);
+      }
+
+      // return [boxOrigin.x, boxOrigin.y, width, height+arrow.height];
+      // https://qiita.com/horikeso/items/95595f379a8dfa63c34a
+    }
+
+    //=====================================
+    //======= Blockly GUI codes ===========
+    // Use in a block or block definition:
+
+    // Resizable workspace injection script
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
+    // var workspace = Blockly.inject(blocklyDiv,
+    //     {toolbox: document.getElementById('toolbox')});
+    var workspace = Blockly.inject(blocklyDiv,
+      {
+        toolbox: document.getElementById('toolbox'),
+
+        scrollbars: true,
+        grid: {
+          spacing: 20,
+          length: 1,
+          colour: '#888',
+          snap: true
+        },
+        zoom: { startScale: 1.0, controls: true },
+        trashcan: true,
+        media: './google-blockly/media/'
+      });
+    var onresize = function (e) {
+      // Compute the absolute coordinates and dimensions of blocklyArea.
+      var element = blocklyArea;
+      var x = 0;
+      var y = 0;
+      do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+      // Position blocklyDiv over blocklyArea.
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+      Blockly.svgResize(workspace);
+    };
+    window.addEventListener('resize', onresize, false);
+    onresize();
+    Blockly.svgResize(workspace);
+    //=====================================
+    //=====================================
+
+
+    // ワークスペースの未保存の変更のフラグ
+    const ugj_wsUpdateCB = event => {
+      if (event.type != Blockly.Events.UI) {
+        elec.setWsChanged(true);
+      }
+    }
+
+    // ウィンドウロード・アンロード時
+    window.onload = () => {
+      var menu = document.getElementById('conmenu');  //独自コンテキストメニュー
+      var area = document.getElementById('dlgContent');     //対象エリア
+      var body = document.body;                       //bodyエリア
+      body.oncontextmenu = () => false;
+      //右クリック時に独自コンテキストメニューを表示する
+      area.addEventListener('contextmenu', function (e) {
+        menu.style.left = e.pageX + 'px';
+        menu.style.top = e.pageY + 'px';
+        menu.classList.add('on');
+      });
+      //左クリック時に独自コンテキストメニューを非表示にする
+      body.addEventListener('click', function () {
+        if (menu.classList.contains('on')) {
+          menu.classList.remove('on');
+        }
+      });
+
+      // ワークスペースといくつかの環境のオートリストア
+      ugj_loadWorkspace();
+      elec.loadPrefsFromLS();
+      setTimeout(() => { // 環境設定のロードが終わってからイベントリスナを作成
+        workspace.addChangeListener(ugj_wsUpdateCB);
+      }, 100);
+    }
+    window.onbeforeunload = () => {
+      ugj_saveWorkspace();
+      elec.savePrefsToLS();
+    }
+
+    // Electron動作とブラウザ動作を自動で仕分け
+    if (typeof require == 'function') {
+      // requireが使える = Electron
+      var elec = require('./scripts/eleclib');
+      console.log('elec loaded.');
+    } else {
+      //ブラウザ動作
+      //requireのダミー
+      var require = (e) => {
+        alert(`この機能またはブロック [${e}] は web 版ではご利用になれません。\n詳しくはお問い合わせください。`);
+        // if (e=='elec' || e=='ocoge' || e=='child_process' || e=='@google-cloud/speech' || e=='nodemailer' || e=='fs' )
+        //   alert(`この機能またはブロックは web 版ではご利用になれません。\n詳しくはお問い合わせください。`);
+        // else return;
+      }
+      //elecを名前空間で置き換え
+      var elec = {};
+      elec.saveFile = () => require('elec');
+      elec.savePrefsToLS = () => { ; }
+      elec.loadPrefsFromLS = () => { ; }
+      elec.newFile = () => { ; }
+      elec.setWsChanged = () => { ; }
+
+      //ワークスペースのダウンロード
+      elec.saveWsFile = xml_text => {
+        let blob = new Blob([xml_text], { "type": "text/xml" });
+        const downLoadLink = document.createElement("a");
+        document.body.appendChild(downLoadLink);
+        downLoadLink.download = 'workspace.xml';
+        downLoadLink.href = URL.createObjectURL(blob);
+        downLoadLink.click();
+        downLoadLink.parentElement.removeChild(downLoadLink);
+        return true;
+      }
+      //ワークスペースのインポート
+      elec.loadWsFile = () => {
+        const fileInputEl = document.createElement('input');
+        document.body.appendChild(fileInputEl);
+        fileInputEl.type = 'file';
+        fileInputEl.addEventListener('change', ev => {
+          let reader = new FileReader();
+          reader.readAsText(ev.target.files[0]);
+          reader.addEventListener('load', () => {
+            let xml = Blockly.Xml.textToDom(reader.result);
+            Blockly.Xml.domToWorkspace(xml, workspace);
+          });
+        });
+        fileInputEl.click();
+        fileInputEl.parentElement.removeChild(fileInputEl);
+        return '';
+      }
+    }
 
 //# sourceURL=userscript.js
-</script>
+  </script>
 </body>
+
 </html>
