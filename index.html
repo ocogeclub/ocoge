@@ -849,7 +849,7 @@
       </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
-    <category name="マルチメディア" colour="%{BKY_UGJ_MULTIMEDIA_HUE}" css-icon="customIcon fas fa-calculator">
+    <category name="マルチメディア" colour="%{BKY_UGJ_MULTIMEDIA_HUE}" css-icon="customIcon fas fa-gamepad">
       <label text="キャンバス" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_canvas_init"></block>
       <block type="ugj_canvas_clearrect">
@@ -1304,6 +1304,8 @@
       </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
+    <category name="スニペット" colour="%{BKY_UGJ_SNIPPETS_HUE}" css-icon="customIcon fas fa-egg">
+    </category>
   </xml>
 
   <script src="./google-blockly/blockly_compressed.js"></script>
@@ -1334,6 +1336,7 @@
     Blockly.Msg.UGJ_MULTIMEDIA_HUE = 240;//CF63CF
     Blockly.Msg.UGJ_NETWORK_HUE = 340;//"#54C4EA"
     Blockly.Msg.UGJ_SPECIAL_HUE = 20;//"#0FBD8C"
+    Blockly.Msg.UGJ_SNIPPETS_HUE = 90;
 
     // Customize Toolbox
     class CustomCategory extends Blockly.ToolboxCategory {
