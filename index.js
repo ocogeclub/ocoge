@@ -16,6 +16,7 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true
     }
   })
@@ -77,6 +78,27 @@ app.on('ready', () => {
             win.reload();
           },
           accelerator: "F5"
+        },
+        {
+          label: 'About',
+          click: () => {
+            var os = require('os');
+            var detail = 'Version: ' + process.env.npm_package_version + '\n'
+              + 'Node.js: ' + process.versions.node + '\n'
+              + 'Chrome: ' + process.versions.chrome + '\n'
+              + 'Electron: ' + process.versions.electron + '\n'
+              + 'V8: ' + process.versions.v8 + '\n'
+              + 'OS: ' + os.type + ' ' + os.arch + ' ' + os.version + ' ' + os.release;
+            var options = {
+              type: 'info',
+              buttons: ['OK'],
+              title: 'OCoGe',
+              message: 'OCoGe - Oiwa Code Generator',
+              detail: detail
+            };
+            require('electron').dialog.showMessageBox(win, options);
+          },
+          accelerator: "CommandOrControl+I"
         }
       ]
     }
