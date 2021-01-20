@@ -235,7 +235,7 @@
 
     body {
       background-color: #fff;
-      font-family: sans-serif;
+      font-family: "Noto Sans CJK JP Regular", sans-serif;
       overflow: hidden;
     }
 
@@ -243,11 +243,7 @@
       height: 99%;
     }
 
-    /* ツールボックス背景色 */
-    div#blocklyDiv .blocklyToolboxDiv {
-      background: aliceblue;
-    }
-
+    /* ツールボックス関連 */
     /* スクロールバー非表示（撮影用） */
     div#blocklyDiv .blocklyToolboxDiv::-webkit-scrollbar {
       display: none;
@@ -267,7 +263,7 @@
 
     /* Makes our label white. */
     .blocklyTreeLabel {
-      color: white;
+      font-family: 'Noto Sans CJK JP Light';
     }
 
     /* Adds padding around the group of categories and separators. */
@@ -300,14 +296,13 @@
     }
 
     /* Override Flyout BGColor */
-    .blocklyFlyoutBackground {
-      fill: lavender;
-    }
-
+    /* .blocklyFlyoutBackground {
+  fill: lavender;
+} */
     /* Override Flyout TextColor */
-    .blocklyFlyoutLabelText {
-      fill: steelblue !important;
-    }
+    /* .blocklyFlyoutLabelText {
+  fill: steelblue !important;
+} */
 
     /* ツールバー */
     div.toolbar {
@@ -707,7 +702,7 @@
     <category name="関数" css-icon="customIcon fas fa-yin-yang" categorystyle="procedure_category" custom="PROCEDURE">
     </category>
     <sep></sep>
-    <category name="GPIO" colour="%{BKY_UGJ_GPIO_HUE}" css-icon="customIcon fab fa-raspberry-pi">
+    <category name="GPIO" css-icon="customIcon fab fa-raspberry-pi" categorystyle="gpio_category">
       <label text="基本"></label>
       <block type="ugj_gpio_start"></block>
       <block type="ugj_gpio_stop"></block>
@@ -854,7 +849,7 @@
       </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
-    <category name="マルチメディア" colour="%{BKY_UGJ_MULTIMEDIA_HUE}" css-icon="customIcon fas fa-gamepad">
+    <category name="マルチメディア" css-icon="customIcon fas fa-gamepad" categorystyle="multimedia_category">
       <label text="キャンバス" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_canvas_init"></block>
       <block type="ugj_canvas_clearrect">
@@ -1011,7 +1006,7 @@
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
 
-    <category name="ネットワーク" colour="%{BKY_UGJ_NETWORK_HUE}" css-icon="customIcon fas fa-wifi">
+    <category name="ネットワーク" css-icon="customIcon fas fa-wifi" categorystyle="network_category">
       <label text="基本" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_network_axios_geturl">
         <value name="url">
@@ -1083,7 +1078,7 @@
       </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
-    <category name="特殊" colour="%{BKY_UGJ_SPECIAL_HUE}" css-icon="customIcon fas fa-plug">
+    <category name="特殊" css-icon="customIcon fas fa-plug" categorystyle="special_category">
       <label text="出入力" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_canvas_say">
         <value name="say">
@@ -1309,7 +1304,7 @@
       </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
-    <category name="スニペット" colour="%{BKY_UGJ_SNIPPETS_HUE}" css-icon="customIcon fas fa-egg">
+    <category name="スニペット" css-icon="customIcon fas fa-egg" categorystyle="snippets_category">
     </category>
   </xml>
 
@@ -1326,22 +1321,76 @@
     const testfunc = () => {
       elec.openURL('http://ocoge.club');
     }
+
     //============ User Customize Start ===============
+    // テーマ
+    // カスタムブロックカラー定義
+    Blockly.HSV_SATURATION = 0.55;
+    Blockly.HSV_VALUE = 0.75;
+    var gpio_color = '0';
+    var multimedia_color = '240';
+    var network_color = '340';
+    var special_color = '20';
+    var snippets_color = '90';
+
+    // Blockly.Msg.UGJ_GPIO_HUE = 0;//FF7799
+    // Blockly.Msg.UGJ_MULTIMEDIA_HUE = 240;//CF63CF
+    // Blockly.Msg.UGJ_NETWORK_HUE = 340;//"#54C4EA"
+    // Blockly.Msg.UGJ_SPECIAL_HUE = 20;//"#0FBD8C"
+    // Blockly.Msg.UGJ_SNIPPETS_HUE = 90;
+
+    var theme = Blockly.Theme.defineTheme('ocoge', {
+      'base': Blockly.Themes.Classic,
+      'fontStyle': { "family": "Noto Sans CJK JP Light" },
+      'startHats': true,
+      'componentStyles': {
+        'toolboxBackgroundColour': 'aliceblue',
+        'flyoutBackgroundColour': 'lavender',
+        'toolboxForegroundColour': 'white',
+        'flyoutForegroundColour': 'steelblue'
+      },
+      'blockStyles': {
+        'gpio_blocks': {
+          "colourPrimary": gpio_color
+        },
+        'multimedia_blocks': {
+          "colourPrimary": multimedia_color
+        },
+        'network_blocks': {
+          "colourPrimary": network_color
+        },
+        'special_blocks': {
+          "colourPrimary": special_color
+        },
+        'snippets_blocks': {
+          "colourPrimary": snippets_color
+        }
+      },
+      'categoryStyles': {
+        "gpio_category": {
+          "colour": gpio_color
+        },
+        "multimedia_category": {
+          "colour": multimedia_color
+        },
+        "network_category": {
+          "colour": network_color
+        },
+        "special_category": {
+          "colour": special_color
+        },
+        "snippets_category": {
+          "colour": snippets_color
+        }
+      },
+    });
+
     // Customize messages
     Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "ならば";
     Blockly.Msg["CONTROLS_REPEAT_INPUT_DO"] = "";
     Blockly.Msg["MATH_CHANGE_TITLE"] = "変数 %1 を %2 増やす";
     Blockly.Msg["VARIABLES_SET"] = "変数 %1 を %2 にする";
     Blockly.Msg["TEXT_PRINT_TITLE"] = "ダイアログに %1 を表示";
-
-    // Block color
-    Blockly.HSV_SATURATION = 0.55;
-    Blockly.HSV_VALUE = 0.75;
-    Blockly.Msg.UGJ_GPIO_HUE = 0;//FF7799
-    Blockly.Msg.UGJ_MULTIMEDIA_HUE = 240;//CF63CF
-    Blockly.Msg.UGJ_NETWORK_HUE = 340;//"#54C4EA"
-    Blockly.Msg.UGJ_SPECIAL_HUE = 20;//"#0FBD8C"
-    Blockly.Msg.UGJ_SNIPPETS_HUE = 90;
 
     // Customize Toolbox
     class CustomCategory extends Blockly.ToolboxCategory {
@@ -1687,6 +1736,7 @@
     var workspace = Blockly.inject(blocklyDiv,
       {
         toolbox: document.getElementById('toolbox'),
+        theme: theme,
 
         scrollbars: true,
         grid: {

@@ -3,29 +3,29 @@ const appDocRoot = '/home/pi/Documents/ocoge/'
 
 /** Fix Basic Blocks ****************************************************************************************/
 Blockly.Blocks['ugj_control_for'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable("番号"), "index");
+      .appendField(new Blockly.FieldVariable("番号"), "index");
     this.appendValueInput("from")
-        .setCheck("Number")
-        .appendField("を");
+      .setCheck("Number")
+      .appendField("を");
     this.appendValueInput("to")
-        .setCheck("Number")
-        .appendField("から");
+      .setCheck("Number")
+      .appendField("から");
     this.appendValueInput("by")
-        .setCheck("Number")
-        .appendField("まで");
+      .setCheck("Number")
+      .appendField("まで");
     this.appendDummyInput()
-        .appendField("ずつ")
-        .appendField(new Blockly.FieldDropdown([["増やして","increase"], ["減らして","decrease"]]), "crease");
+      .appendField("ずつ")
+      .appendField(new Blockly.FieldDropdown([["増やして", "increase"], ["減らして", "decrease"]]), "crease");
     this.appendStatementInput("do")
-        .setCheck(null);
+      .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Msg.LOOPS_HUE);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
@@ -54,7 +54,7 @@ Blockly.Blocks['ugj_control_for'] = {
 //     this.setHelpUrl("");
 //   }
 // };
-Blockly.JavaScript['ugj_control_for'] = function(block) {
+Blockly.JavaScript['ugj_control_for'] = function (block) {
   var variable_index = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('index'), Blockly.Variables.NAME_TYPE);
   var value_from = Blockly.JavaScript.valueToCode(block, 'from', Blockly.JavaScript.ORDER_ATOMIC);
   var value_to = Blockly.JavaScript.valueToCode(block, 'to', Blockly.JavaScript.ORDER_ATOMIC);
@@ -62,8 +62,8 @@ Blockly.JavaScript['ugj_control_for'] = function(block) {
   var dropdown_crease = block.getFieldValue('crease');
   var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
   let daishou, tasuhiku;
-  if (dropdown_crease == 'increase') {daishou = '<'; tasuhiku = '+';}
-  else {daishou = '>'; tasuhiku = '-';}
+  if (dropdown_crease == 'increase') { daishou = '<'; tasuhiku = '+'; }
+  else { daishou = '>'; tasuhiku = '-'; }
   var code = [
     `for (${variable_index} = ${value_from}; ${variable_index} ${daishou}= ${value_to}; ${variable_index} ${tasuhiku}= ${value_by}) {`,
     statements_do,
@@ -123,19 +123,19 @@ Blockly.JavaScript['ugj_controls_forEach'] = function (block) {
 /** Additional Basic Blocks********************************************************************************* */
 
 Blockly.Blocks['ugj_hextodec'] = {
-  init: function() {
+  init: function () {
     this.appendValueInput("hex")
-        .setCheck("String")
-        .appendField("0x");
+      .setCheck("String")
+      .appendField("0x");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
     this.setColour(Blockly.Msg.MATH_HUE);
- this.setTooltip("16進数を10進数に変換します。");
- this.setHelpUrl("");
+    this.setTooltip("16進数を10進数に変換します。");
+    this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_hextodec'] = function(block) {
+Blockly.JavaScript['ugj_hextodec'] = function (block) {
   var value_hex = Blockly.JavaScript.valueToCode(block, 'hex', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `parseInt (${value_hex}, 16)`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
@@ -153,7 +153,7 @@ Blockly.Blocks['ugj_gpio_start'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIOを初期化して接続します。");
     this.setHelpUrl("");
   }
@@ -173,7 +173,7 @@ Blockly.Blocks['ugj_gpio_start_remote'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("他のマシンのリモートGPIOに接続します。");
     this.setHelpUrl("");
   }
@@ -194,7 +194,7 @@ Blockly.Blocks['ugj_gpio_stop'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIOとの接続を終了します。");
     this.setHelpUrl("");
   }
@@ -217,7 +217,7 @@ Blockly.Blocks['ugj_gpio_setoutput'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIO端子のモードを出力に設定します。");
     this.setHelpUrl("");
   }
@@ -242,7 +242,7 @@ Blockly.Blocks['ugj_gpio_setinput'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIO端子を入力モードにして、プルアップ・プルダウンを設定します。");
     this.setHelpUrl("");
   }
@@ -268,7 +268,7 @@ Blockly.Blocks['ugj_gpio_read'] = {
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIO端子の値をデジタル値（0または1）で読み取ります。");
     this.setHelpUrl("");
   }
@@ -295,7 +295,7 @@ Blockly.Blocks['ugj_gpio_write'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("GPIO端子の値をデジタル値（0または1）で出力します。");
     this.setHelpUrl("");
   }
@@ -323,7 +323,7 @@ Blockly.Blocks['ugj_gpio_servo'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("サーボモータの回転をパルス幅(1000～2000μsec)までの数値で指定します。");
     this.setHelpUrl("");
   }
@@ -350,7 +350,7 @@ Blockly.Blocks['ugj_gpio_setpwmfreqrange'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("パルス周波数をセットして、GPIO端子がPWM出力できるようにします。レンジは100固定です。");
     this.setHelpUrl("");
   }
@@ -382,7 +382,7 @@ Blockly.Blocks['ugj_gpio_setpwmdutycycle'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("デューティ比(1～100%)を指定して出力を開始します。0を指定すると出力を停止します。事前に必ずパルス周波数ブロックが実行されるようにしてください。");
     this.setHelpUrl("https://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E6%AF%94");
   }
@@ -398,23 +398,23 @@ Blockly.JavaScript['ugj_gpio_setpwmdutycycle'] = function (block) {
 /** Open Serial Port ** */
 /********************** */
 Blockly.Blocks['ugj_gpio_serialopen'] = {
-  init: function() {
+  init: function () {
     this.appendValueInput("tty")
-        .setCheck("String")
-        .appendField("シリアルポート");
+      .setCheck("String")
+      .appendField("シリアルポート");
     this.appendDummyInput()
-        .appendField("を速度")
-        .appendField(new Blockly.FieldDropdown([["9600","9600"], ["19200","19200"], ["115200","115200"]]), "baud")
-        .appendField("bpsで開く");
+      .appendField("を速度")
+      .appendField(new Blockly.FieldDropdown([["9600", "9600"], ["19200", "19200"], ["115200", "115200"]]), "baud")
+      .appendField("bpsで開く");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("シリアルデバイスとの接続を開きます。");
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_gpio_serialopen'] = function(block) {
+Blockly.JavaScript['ugj_gpio_serialopen'] = function (block) {
   var value_tty = Blockly.JavaScript.valueToCode(block, 'tty', Blockly.JavaScript.ORDER_ATOMIC);
   var dropdown_baud = block.getFieldValue('baud');
   var code = `let serhand = pi.serial_open(${value_tty}, ${dropdown_baud}, 0);`;
@@ -424,18 +424,18 @@ Blockly.JavaScript['ugj_gpio_serialopen'] = function(block) {
 /** Close Serial Port ** */
 /********************** */
 Blockly.Blocks['ugj_serial_close'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
-        .appendField("シリアルポートを閉じる");
+      .appendField("シリアルポートを閉じる");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("シリアルデバイスとの接続を閉じます。");
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_serial_close'] = function(block) {
+Blockly.JavaScript['ugj_serial_close'] = function (block) {
   var code = 'pi.serial_close(serhand);';
   return code;
 };
@@ -453,7 +453,7 @@ Blockly.Blocks['ugj_serial_write'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("シリアル接続されたデバイスにデータを送信します。シリアルポートは開かれていなくてはいけません。");
     this.setHelpUrl("");
   }
@@ -477,7 +477,7 @@ Blockly.Blocks['ugj_gpio_serialread'] = {
     this.setInputsInline(true);
     this.setOutput(true, null);
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("オープン済みシリアルポートから、指定のバイト数だけデータを読み込みます。");
     this.setHelpUrl("");
   }
@@ -492,21 +492,21 @@ Blockly.JavaScript['ugj_gpio_serialread'] = function (block) {
 /** Open I2C Device ** */
 /********************* */
 Blockly.Blocks['ugj_gpio_i2copen'] = {
-  init: function() {
+  init: function () {
     this.appendValueInput("i2c_addr")
-        .setCheck("Number")
-        .appendField("アドレス");
+      .setCheck("Number")
+      .appendField("アドレス");
     this.appendDummyInput()
-        .appendField("の I2C デバイスを開く");
+      .appendField("の I2C デバイスを開く");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("I2C接続されたデバイスとの通信を開始します。一度にオープンできるI2Cデバイスはひとつだけです。");
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_gpio_i2copen'] = function(block) {
+Blockly.JavaScript['ugj_gpio_i2copen'] = function (block) {
   var value_i2c_addr = Blockly.JavaScript.valueToCode(block, 'i2c_addr', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `let i2cHand = pi.i2c_open(1, ${value_i2c_addr}, 0);`;
   return code;
@@ -521,7 +521,7 @@ Blockly.Blocks['ugj_gpio_i2cclose'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("I2C接続されたデバイスと通信を切断します。");
     this.setHelpUrl("");
   }
@@ -548,7 +548,7 @@ Blockly.Blocks['ugj_gpio_i2cwritebyte'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("デバイスの指定されたレジスタに1バイトを書き込みます。");
     this.setHelpUrl("");
   }
@@ -573,7 +573,7 @@ Blockly.Blocks['ugj_gpio_i2creadbyte'] = {
     this.setInputsInline(true);
     this.setOutput(true, null);
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("デバイスの指定されたレジスタから1バイトを読み込みます。");
     this.setHelpUrl("");
   }
@@ -602,7 +602,7 @@ Blockly.Blocks['ugj_dht'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("温湿度センサー DHT11/DHT22 を使用して気温と湿度を読み取ります。");
     this.setHelpUrl("");
   }
@@ -639,7 +639,7 @@ Blockly.Blocks['ugj_gpio_sleep'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("実行環境全体を完全に一時停止します。停止中はすべての操作ができなくなります。※実験用");
     this.setHelpUrl("");
   }
@@ -660,7 +660,7 @@ Blockly.Blocks['ugj_library_tensorflow'] = {
     this.appendDummyInput()
       .appendField("TensorFlowによる画像認識（推論）");
     this.setOutput(true, "Library");
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("tensorflow.jsをロードし、推論ができるようにします。");
     this.setHelpUrl("");
   }
@@ -679,7 +679,7 @@ Blockly.Blocks['ugj_tfpredict_init'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("画像認識（推論）をするためのビデオストリームを表示します。");
     this.setHelpUrl("");
   }
@@ -705,7 +705,7 @@ Blockly.Blocks['ugj_tfpredict_loadmodel'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("ardamavi氏による指数え画像データセットをPonDad氏がts.js用モデルにコンバートしたものです。");
     this.setHelpUrl("https://github.com/PonDad/manatee");
   }
@@ -727,7 +727,7 @@ Blockly.Blocks['ugj_tfpredict_predict'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("読み込んだモデルを使用してカメラ画像から画像認識を行い、変数に代入します。");
     this.setHelpUrl("");
   }
@@ -768,7 +768,7 @@ Blockly.Blocks['ugj_face_library'] = {
     this.setInputsInline(true);
     this.setOutput(true, "Library");
     // this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("face-api.jsをロードし、顔認識ができるようにします。");
     this.setHelpUrl("");
   }
@@ -784,7 +784,7 @@ Blockly.Blocks['ugj_face_init'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("顔認識のためのビデオストリームを開始します。");
     this.setHelpUrl("");
   }
@@ -805,7 +805,7 @@ Blockly.Blocks['ugj_face_display'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("カメラの映像を画像エリアに表示します。必須ではないブロックです。");
     this.setHelpUrl("");
   }
@@ -835,7 +835,7 @@ Blockly.Blocks['ugj_face_detect'] = {
       .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("顔を発見したら動作します。");
     this.setHelpUrl("");
   }
@@ -875,7 +875,7 @@ Blockly.Blocks['ugj_face_drawrect'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("顔の位置に四角形を表示します。");
     this.setHelpUrl("");
   }
@@ -910,7 +910,7 @@ Blockly.Blocks['ugj_canvas_say'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キャンバスにフキダシを作ります。");
     this.setHelpUrl("");
   }
@@ -934,7 +934,7 @@ Blockly.Blocks['ugj_canvas_init'] = {
       .appendField("キャンバスを表示");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キャンバスを表示し、使用できるようにします。");
     this.setHelpUrl("");
   }
@@ -960,7 +960,7 @@ Blockly.Blocks['ugj_canvas_finalize'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("使ったキャンバスを片付けます。");
     this.setHelpUrl("");
   }
@@ -983,7 +983,7 @@ Blockly.Blocks['ugj_canvas_loadimg'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("画像ファイルの内容をキャンバス上にロードします。");
     this.setHelpUrl("");
   }
@@ -1021,7 +1021,7 @@ Blockly.Blocks['ugj_canvas_clearrect'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("長方形に図形を消去します。左上の頂点の座標と、幅・高さを指定します。");
     this.setHelpUrl("");
   }
@@ -1046,7 +1046,7 @@ Blockly.Blocks['ugj_canvas_width'] = {
     this.setInputsInline(true);
     this.setOutput(true, null);
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キャンバスの幅を取得します。");
     this.setHelpUrl("");
   }
@@ -1065,7 +1065,7 @@ Blockly.Blocks['ugj_canvas_height'] = {
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キャンバスの高さを取得します。");
     this.setHelpUrl("");
   }
@@ -1099,7 +1099,7 @@ Blockly.Blocks['ugj_canvas_drawcircle'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("円を描画します。");
     this.setHelpUrl("");
   }
@@ -1145,7 +1145,7 @@ Blockly.Blocks['ugj_canvas_drawrect'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キャンバス上に長方形を描画します。");
     this.setHelpUrl("");
   }
@@ -1182,7 +1182,7 @@ Blockly.Blocks['ugj_event_key'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("キーボードを押したり離したりした時のアクションです。");
     this.setHelpUrl("https://developer.mozilla.org/ja/docs/Web/API/KeyboardEvent/key/Key_Values");
   }
@@ -1212,7 +1212,7 @@ Blockly.Blocks['ugj_sound_play'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("音を鳴らします。");
     this.setHelpUrl("");
   }
@@ -1249,7 +1249,7 @@ Blockly.Blocks['ugj_multimedia_cloudspeech_recognition'] = {
       .appendField("停止したら");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("Google Cloud Speech API による音声認識を行います。言葉を検知したらステートメントが実行されます。認識途中の暫定結果を取得することもできます。");
     this.setHelpUrl("");
   }
@@ -1352,7 +1352,7 @@ Blockly.Blocks['ugj_multimedia_webspeech_recognition'] = {
       .appendField("停止したら");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
-    this.setColour(Blockly.Msg.UGJ_MULTIMEDIA_HUE);
+    this.setStyle('multimedia_blocks')
     this.setTooltip("Web Speech API による音声認識を行います。言葉を検知したらステートメントが実行されます。認識途中の暫定結果を取得することもできます。");
     this.setHelpUrl("");
   }
@@ -1419,7 +1419,7 @@ Blockly.Blocks['ugj_socket'] = {
       .appendField("が来たら");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("TCP接続(Telnet)でサーバーと接続します。");
     this.setHelpUrl("");
   }
@@ -1457,7 +1457,7 @@ Blockly.Blocks['ugj_socket_write'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("TCP接続で開いたソケットにデータを書き込みます。");
     this.setHelpUrl("");
   }
@@ -1489,7 +1489,7 @@ Blockly.Blocks['ugj_network_httpserver'] = {
       .appendField("を表示してアクセス待ちに戻る");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("HTTPサーバを起動します。ポートは3000固定です。");
     this.setHelpUrl("");
   }
@@ -1526,7 +1526,7 @@ Blockly.Blocks['ugj_network_axios_geturl'] = {
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("URLにGETリクエストを送信し、レスポンスを取得します。エラーの場合、HTTPステータスコードを返します。");
     this.setHelpUrl("");
   }
@@ -1572,7 +1572,7 @@ Blockly.Blocks['ugj_network_sendmail'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("メールを送信します。Fromアドレスは使用できません。");
     this.setHelpUrl("");
   }
@@ -1617,7 +1617,7 @@ Blockly.Blocks['ugj_library_skyway'] = {
       .appendField("WebRTC+SkyWayによるウェブチャット");
     this.setInputsInline(true);
     this.setOutput(true, "Library");
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("skyway.jsをロードし、ウェブチャットができるようにします。");
     this.setHelpUrl("");
   }
@@ -1636,7 +1636,7 @@ Blockly.Blocks['ugj_webchat'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("ビデオ画面、チャット入力フォームや黒板を表示します。");
     this.setHelpUrl("");
   }
@@ -1666,7 +1666,7 @@ Blockly.Blocks['ugj_getusermedia'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("このコンピュータにつながれているメディアデバイスから映像を取得して表示します。");
     this.setHelpUrl("");
   }
@@ -1699,7 +1699,7 @@ Blockly.Blocks['ugj_skyway_newpeer'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("サーバーにIDを登録して、相手先呼び出しの準備をします。");
     this.setHelpUrl("");
   }
@@ -1740,7 +1740,7 @@ Blockly.Blocks['ugj_skyway_called'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("接続要求があった場合、チャットを開始する処理です。");
     this.setHelpUrl("");
   }
@@ -1769,7 +1769,7 @@ Blockly.Blocks['ugj_skyway_events'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("チャットの相手との接続後の動作を定義します。");
     this.setHelpUrl("");
   }
@@ -1798,7 +1798,7 @@ Blockly.Blocks['ugj_skyway_eventopen'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("チャット相手との接続が確立したときの動作を決めます。");
     this.setHelpUrl("");
   }
@@ -1826,7 +1826,7 @@ Blockly.Blocks['ugj_skyway_eventdata'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("チャット相手の発言を受信したときの動作です。");
     this.setHelpUrl("");
   }
@@ -1855,7 +1855,7 @@ Blockly.Blocks['ugj_skyway_eventsend'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("入力フィールドで送信が発生したときの動作を決めます。");
     this.setHelpUrl("");
   }
@@ -1893,7 +1893,7 @@ Blockly.Blocks['ugj_file_readsync'] = {
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("あなたのホーム/ocogeディレクトリ内にあるファイルの内容を取得します。「符号化」は、テキストファイルでは通常「utf8」を選択します。");
     this.setHelpUrl("");
   }
@@ -1921,7 +1921,7 @@ Blockly.Blocks['ugj_localstorage_save'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("テキストデータをローカルストレージに名前を付けて保存します。名前は半角アルファベットと数字だけで指定してください。");
     this.setHelpUrl("");
   }
@@ -1945,7 +1945,7 @@ Blockly.Blocks['ugj_localstorage_load'] = {
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("ローカルストレージからテキストデータを読み込みます。");
     this.setHelpUrl("");
   }
@@ -1966,7 +1966,7 @@ Blockly.Blocks['ugj_localstorage_keylist'] = {
     this.setInputsInline(true);
     this.setOutput(true, null);
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("ローカルストレージに保存されているキーの一覧を取得します。");
     this.setHelpUrl("");
   }
@@ -2006,7 +2006,7 @@ Blockly.Blocks['ugj_event_answer'] = {
     this.appendStatementInput("do")
       .setCheck(null);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("質問をして答えを待ちます。入力欄でキーボードのエンターキーが入力されるか、チェックマークボタンが押されると実行されます。");
     this.setHelpUrl("");
   }
@@ -2054,7 +2054,7 @@ Blockly.Blocks['ugj_spawnsync'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("外部プログラムを実行して子プロセスを生成し、子プロセスが終了するまで待ちます。");
     this.setHelpUrl("");
   }
@@ -2083,7 +2083,7 @@ Blockly.Blocks['ugj_spawn'] = {
       .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("外部プログラムを実行して子プロセスを生成します。データを受け取る毎にステートメントが実行されます。");
     this.setHelpUrl("");
   }
@@ -2111,35 +2111,35 @@ Blockly.JavaScript['ugj_spawn'] = function (block) {
 /************************** */
 // gesture_sensor.py
 Blockly.Blocks['ugj_child_gesture'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
-        .appendField("ジェスチャー");
+      .appendField("ジェスチャー");
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
- this.setTooltip("ジェスチャーセンサー Paj7620 (GrovePi-Python)");
- this.setHelpUrl("");
+    this.setStyle('special_blocks')
+    this.setTooltip("ジェスチャーセンサー Paj7620 (GrovePi-Python)");
+    this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_child_gesture'] = function(block) {
+Blockly.JavaScript['ugj_child_gesture'] = function (block) {
   var code = `'python3', ['./scripts/gesture.py']`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 // face.py
 Blockly.Blocks['ugj_child_facepy'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
-        .appendField("face.py：カメラ画像を表示")
-        .appendField(new Blockly.FieldDropdown([["しない"," "], ["する","-w"]]), "win");
+      .appendField("face.py：カメラ画像を表示")
+      .appendField(new Blockly.FieldDropdown([["しない", " "], ["する", "-w"]]), "win");
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
- this.setTooltip("OpenCVによる顔認識 Python2スクリプト - 顔のX座標を返します。");
- this.setHelpUrl("");
+    this.setStyle('special_blocks')
+    this.setTooltip("OpenCVによる顔認識 Python2スクリプト - 顔のX座標を返します。");
+    this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_child_facepy'] = function(block) {
+Blockly.JavaScript['ugj_child_facepy'] = function (block) {
   var dropdown_win = block.getFieldValue('win');
   var code = `'python', ['./scripts/face.py', '${dropdown_win}']`;
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -2155,7 +2155,7 @@ Blockly.Blocks['ugj_child_openjtalk'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("日本語音声合成プログラム「openJTalk」を使用してしゃべります。声の種類を選べます。");
     this.setHelpUrl("");
   }
@@ -2189,7 +2189,7 @@ Blockly.Blocks['ugj_child_oledtext'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("I2C接続したSSD1306ディスプレイ(128x64)にテキストを描画します。最大4行。");
     this.setHelpUrl("");
   }
@@ -2213,7 +2213,7 @@ Blockly.Blocks['ugj_child_fswebcam'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("fswebcam");
     this.setHelpUrl("");
   }
@@ -2232,7 +2232,7 @@ Blockly.Blocks['ugj_child_julius'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("音声認識エンジン \"Julius\"");
     this.setHelpUrl("");
   }
@@ -2252,7 +2252,7 @@ Blockly.Blocks['ugj_child_irrecord'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("受信した赤外線リモコンの信号を文字列として取得します。");
     this.setHelpUrl("");
   }
@@ -2276,7 +2276,7 @@ Blockly.Blocks['ugj_child_irplayback'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("学習済みの赤外線リモコンの信号を送信します。");
     this.setHelpUrl("");
   }
@@ -2298,7 +2298,7 @@ Blockly.Blocks['ugj_child_irrcvr'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("受信した赤外線リモコンの信号からハッシュを生成します。");
     this.setHelpUrl("");
   }
@@ -2318,7 +2318,7 @@ Blockly.JavaScript['ugj_child_irrcvr'] = function (block) {
 //     this.setInputsInline(true);
 //     this.setOutput(true, null);
 //     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-//     this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+//     this.setStyle('special_blocks')
 //     this.setTooltip("opencv4nodejsによる顔認識");
 //     this.setHelpUrl("");
 //   }
@@ -2335,7 +2335,7 @@ Blockly.Blocks['ugj_child_testpy'] = {
       .appendField("testpy");
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -2353,7 +2353,7 @@ Blockly.Blocks['ugj_child_testjs'] = {
       .appendField("testjs");
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -2376,7 +2376,7 @@ Blockly.Blocks['ugj_child_debug'] = {
     this.setInputsInline(true);
     this.setOutput(true, "shcmd");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("さわるなきけん");
     this.setHelpUrl("");
   }
@@ -2397,7 +2397,7 @@ Blockly.Blocks['ugj_blackboard_show'] = {
       .appendField("黒板を表示");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("文字を表示するための専用エリアを表示します。");
     this.setHelpUrl("");
   }
@@ -2426,7 +2426,7 @@ Blockly.Blocks['ugj_blackboard_write'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("黒板に文字を表示します。次の行に追加する他、最後の行を書き換えることもできます。");
     this.setHelpUrl("");
   }
@@ -2482,7 +2482,7 @@ Blockly.Blocks['ugj_clearblackboard'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("黒板をきれいにします。");
     this.setHelpUrl("");
   }
@@ -2502,7 +2502,7 @@ Blockly.Blocks['ugj_blackboard_content'] = {
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("黒板の内容をプレーンテキストで取得します。");
     this.setHelpUrl("");
   }
@@ -2524,7 +2524,7 @@ Blockly.Blocks['ugj_sleep'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("指定した秒数だけ処理を中断します。");
     this.setHelpUrl("");
   }
@@ -2598,18 +2598,18 @@ Blockly.JavaScript['ugj_text_null'] = function (block) {
 /** Cursor */
 /********* */
 Blockly.Blocks['ugj_text_cursor'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
-        .appendField("カーソル");
+      .appendField("カーソル");
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
     this.setColour(Blockly.Msg.TEXTS_HUE);
- this.setTooltip("特殊記号（カーソル）");
- this.setHelpUrl("");
+    this.setTooltip("特殊記号（カーソル）");
+    this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_text_cursor'] = function(block) {
+Blockly.JavaScript['ugj_text_cursor'] = function (block) {
   var code = "'&#9611;'";
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
@@ -2627,7 +2627,7 @@ Blockly.Blocks['ugj_set_interval'] = {
       .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("非同期で繰り返し処理を行います（停止ボタンまたは停止ブロックで停止）。");
     this.setHelpUrl("");
   }
@@ -2653,7 +2653,7 @@ Blockly.Blocks['ugj_special_clearinterval'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("非同期の繰り返し処理を停止します。");
     this.setHelpUrl("");
   }
@@ -2678,7 +2678,7 @@ Blockly.Blocks['ugj_set_timeout'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(false, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("指定した秒数だけ待ってから実行します。");//内側のブロック部を 外側下に接続したものは待たずに直ちに実行されます（非同期動作）。
     this.setHelpUrl("");
   }
@@ -2701,7 +2701,7 @@ Blockly.Blocks['ugj_library_load'] = {
       .setCheck(null);
     this.setInputsInline(true);
     // this.setStartHat(true);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("ライブラリをロードします。");
     this.setHelpUrl("");
   }
@@ -2746,7 +2746,7 @@ Blockly.Blocks['ugj_control_button'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_SPECIAL_HUE);
+    this.setStyle('special_blocks')
     this.setTooltip("ディスプレイカラムにボタンを作成し、クリックのイベントリスナを定義します。テキストデータをひとつ、\"title\"属性値として設定・取り出しが可能です。保存したデータはマウスオーバーで確認できます。");
     this.setHelpUrl("");
   }
@@ -2815,7 +2815,7 @@ Blockly.Blocks['ugj_network_fetch'] = {
       .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_NETWORK_HUE);
+    this.setStyle('network_blocks')
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -2912,7 +2912,7 @@ Blockly.Blocks['ugj_serial_openclose'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(Blockly.Msg.UGJ_GPIO_HUE);
+    this.setStyle('gpio_blocks')
     this.setTooltip("シリアルデバイスとの接続を開き、用事が終わったら閉じます。");
     this.setHelpUrl("");
   }
@@ -2932,25 +2932,25 @@ Blockly.JavaScript['ugj_serial_openclose'] = function (block) {
 };
 
 Blockly.Blocks['ugj_gpio_i2copenclose'] = {
-  init: function() {
+  init: function () {
     this.appendValueInput("i2c_addr")
-        .setCheck("String")
-        .appendField("アドレス");
+      .setCheck("String")
+      .appendField("アドレス");
     this.appendDummyInput()
-        .appendField("の I2C デバイスを開く");
+      .appendField("の I2C デバイスを開く");
     this.appendStatementInput("do")
-        .setCheck(null);
+      .setCheck(null);
     this.appendDummyInput()
-        .appendField("デバイスを閉じる");
+      .appendField("デバイスを閉じる");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("I2C接続されたデバイスと通信を行います。");
- this.setHelpUrl("");
+    this.setTooltip("I2C接続されたデバイスと通信を行います。");
+    this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['ugj_gpio_i2copenclose'] = function(block) {
+Blockly.JavaScript['ugj_gpio_i2copenclose'] = function (block) {
   var value_i2c_addr = Blockly.JavaScript.valueToCode(block, 'i2c_addr', Blockly.JavaScript.ORDER_ATOMIC);
   var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
   // TODO: Assemble JavaScript into code variable.
