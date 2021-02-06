@@ -1,6 +1,6 @@
-.*/
-_*/
-bin/
 node_modules/
+.shared/
+bin/
+build/
 *.zip
 push.sh
