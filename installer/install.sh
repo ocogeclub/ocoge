@@ -8,7 +8,7 @@ sudo npm install -g n
 # install desktop entry
 cp -r ./files/share ~/.local/
 # install binary files if exists
-FILE = "./files/binary.zip"
+FILE="./files/binary.zip"
 if [ -e $FILE ]; then
   unzip $FILE -d ..
 else
