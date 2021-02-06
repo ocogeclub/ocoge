@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=オコゲ
+Comment=大岩産 code generator
+Path=/home/pi/Applications/ocoge
+Exec=npm start
+Icon=ocoge.png
+Categories=Development;IDE;
+Terminal=false
+Encoding=UTF-8
+StartupNotify=true
+
