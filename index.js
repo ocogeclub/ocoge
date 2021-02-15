@@ -80,6 +80,14 @@ app.on('ready', () => {
           accelerator: "F5"
         },
         {
+          label: 'Mascot',
+          click: (item, focusedWindow) => {
+            if (focusedWindow)
+            focusedWindow.webContents.executeJavaScript('ugj_selectMascot()');
+          },
+          accelerator: "CommandOrControl+M"
+        },
+        {
           label: 'About',
           click: () => {
             var os = require('os');

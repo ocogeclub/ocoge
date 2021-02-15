@@ -6,6 +6,7 @@
 // Hard Coding!!!
 const appName = 'ocoge';
 const defpath = '/home/pi/Documents/ocoge/';
+const mascotDefPath = '/home/pi/Applications/ocoge/img/';
 // Require
 const fs = require('fs');
 const path = require("path");
@@ -17,6 +18,7 @@ const clipboard = require('electron').clipboard;
 
 var saveFilepath = null;
 var wsChanged = false;
+var mascotFilePath = './img/cogechee.png';
 
 // 0で数値の桁合わせ
 // NUM=値 LEN=桁数
@@ -72,7 +74,7 @@ exports.newFile = () => setSaveFilepath(null);
 
 // ワークスペースファイル読み込みの一連の動作のラッパ
 exports.loadWsFile = () => {
-    let filepath = openFile('xml');
+    let filepath = openFile('xml', defpath);
     if (filepath.length > 0) {
         if (saveFilepath === null) {
             setSaveFilepath(filepath);
@@ -84,27 +86,32 @@ exports.loadWsFile = () => {
 }
 // その他ファイル読み込みの一連の動作のラッパ
 exports.loadFile = ext => {
-    let filepath = openFile(ext);
+    let filepath = openFile(ext, defpath);
     if (filepath.length > 0) {
         return readFromFile(filepath);
     } else {
         return '';
     }
 }
+exports.selectMascotFile = () => {
+    return openFile('png', mascotDefPath);
+}
 // オープンファイルダイアログ
-const openFile = ext => {
+const openFile = (ext, dpath) => {
     let filter;
     if (ext == 'xml') {
-        filter = { name: 'xml file', extensions: ['xml'] };
+        filter = { name: 'XML - Extensible Markup Language', extensions: ['xml'] };
     } else if (ext == 'js') {
-        filter = { name: 'javascript file', extensions: ['js'] };
+        filter = { name: 'JS - JavaScript', extensions: ['js'] };
+    } else if (ext == 'png') {
+        filter = { name: 'PNG - Portable Network Graphics', extensions: ['png'] };
     } else {
         filter = { name: 'text file', extensions: ['txt'] };
     }
     let filepaths = dialog.showOpenDialogSync(mainWin, {
         properties: ['openFile'],
         title: 'Select a file',
-        defaultPath: defpath,
+        defaultPath: dpath,
         filters: [
             filter
         ]
@@ -207,7 +214,7 @@ exports.killAllChildren = () => {
 exports.savePrefsToLS = () => {
     let wc = '0';
     if (wsChanged) wc = '1';
-    let o = { 'saveFilepath': saveFilepath, 'wsChanged': wc };
+    let o = { 'saveFilepath': saveFilepath, 'wsChanged': wc, 'mascotFilePath': mascotFilePath };
     let s = JSON.stringify(o);
     localStorage.setItem("abrage.json", s);
 }
@@ -219,7 +226,12 @@ exports.loadPrefsFromLS = () => {
     setSaveFilepath(o.saveFilepath);
     if (o.wsChanged == '0') this.setWsChanged(false);
     else this.setWsChanged(true);
+    if (o.mascotFilePath) this.setMascotFilePath(o.mascotFilePath);
 }
+
+// マスコット画像パスをプロパティにセット
+exports.setMascotFilePath = fpath => mascotFilePath = fpath;
+exports.getMascotFilePath = () => mascotFilePath;
 
 
 // ファイル名にアプリケーションのドキュメントルートまでのパスをつけて返す

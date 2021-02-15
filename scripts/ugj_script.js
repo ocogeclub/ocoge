@@ -110,18 +110,31 @@ Blockly.registry.register(
 //============ User Customize End ===============
 
 
-//canvasの準備
-const ugj_canvasBgImg = imgSrc => {
+//背景canvasの準備
+const ugj_canvasBgImg = (imgSrc, x, y) => { //x,y == -1: center or middle
     let el = document.getElementById('canvas_bg');
     let ctx = el.getContext('2d');
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.fillRect(0,0,480,360);
     let img = new Image();
     img.src = imgSrc;
-    // img.onload = () => ctx.drawImage(img, 140, 80); // ミミィ
-    img.onload = () => ctx.drawImage(img, 140, 0); // こげちー
+    img.onload = () => {
+        if (x<0) { //センタリング
+            let w = img.width;
+            if (w>=480) x=0;
+            else x = Math.floor((480 - w) / 2);
+        }
+        if (y<0) { //縦中寄せ
+            let h = img.height;
+            if (h>=360) y=0;
+            else y = Math.floor((360 - h) /2);
+        }
+        ctx.drawImage(img, x, y);
+    }
 };
 // マスコット
 // ugj_canvasBgImg("./img/mimmy.png?" + new Date().getTime()); // ミミィ
-ugj_canvasBgImg("./img/cogechee.png?" + new Date().getTime()); // こげちー
+// ugj_canvasBgImg("./img/cogechee.png?" + new Date().getTime(), -1,-1); // こげちー
 
 // HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
 ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部
@@ -141,6 +154,15 @@ ugj_sounds = (names => { // サウンドファイルのいろいろの配列の�
 })(['meow', 'bounce', 'type_chime', 'type_dink', 'type_tap', 'type_space', 'type_return']); // サウンドファイルのベース名のリスト
 
 // メソッド
+
+// マスコット選択
+const ugj_selectMascot = () => {
+    let fname = elec.selectMascotFile();
+    if (fname) {
+        ugj_canvasBgImg(fname, -1, -1);
+        elec.setMascotFilePath(fname);
+    }
+}
 
 // サウンド再生 - 連続再生のため、再生開始後すぐにオーディオ要素を再生成する
 const ugj_soundPlay = soundName => {
@@ -421,7 +443,7 @@ var workspace = Blockly.inject(blocklyDiv,
         grid: {
             spacing: 20,
             length: 1,
-            colour: '#fff',//888
+            colour: '#888',//888
             snap: true
         },
         zoom: { startScale: 1.0, controls: true },
@@ -484,6 +506,8 @@ window.onload = () => {
     setTimeout(() => { // 環境設定のロードが終わってからイベントリスナを作成
         workspace.addChangeListener(ugj_wsUpdateCB);
     }, 100);
+    // 背景canvas
+    ugj_canvasBgImg(elec.getMascotFilePath(), -1,-1);
 }
 window.onbeforeunload = () => {
     ugj_saveWorkspace();

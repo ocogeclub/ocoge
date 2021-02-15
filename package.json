@@ -23,7 +23,9 @@
     "electron-rebuild": "^2.3.4"
   },
   "dependencies": {
+    "@tensorflow/tfjs-node": "^3.0.0",
     "axios": "^0.21.1",
+    "face-api.js": "^0.22.2",
     "nodemailer": "^6.4.17",
     "ocoge_pigpiod": "file:local_modules/ocoge_pigpiod"
   }
