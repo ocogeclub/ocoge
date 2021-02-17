@@ -536,6 +536,9 @@ if (typeof require == 'function') {
     elec.newFile = () => { ; }
     elec.setWsChanged = () => { ; }
 
+    // マスコット
+    elec.getMascotFilePath = () => './img/cogechee.png';
+
     //ワークスペースのダウンロード
     elec.saveWsFile = xml_text => {
         let blob = new Blob([xml_text], { "type": "text/xml" });

@@ -59,18 +59,11 @@ app.on('ready', () => {
       label: 'Menu',
       submenu: [
         {
-          label: 'Quit',
+          label: 'Toggle Menu Bar',
           click: () => {
-            app.quit();
+            win.setMenuBarVisibility(!win.menuBarVisible);
           },
-          accelerator: "CommandOrControl+Q"
-        },
-        {
-          label: 'Toggle Developer Tools',
-          click: () => {
-            win.webContents.toggleDevTools()
-          },
-          accelerator: "F12"
+          accelerator: "CommandOrControl+Shift+M"
         },
         {
           label: 'Reload',
@@ -86,6 +79,13 @@ app.on('ready', () => {
             focusedWindow.webContents.executeJavaScript('ugj_selectMascot()');
           },
           accelerator: "CommandOrControl+M"
+        },
+        {
+          label: 'Toggle Developer Tools',
+          click: () => {
+            win.webContents.toggleDevTools()
+          },
+          accelerator: "F12"
         },
         {
           label: 'About',
@@ -107,6 +107,13 @@ app.on('ready', () => {
             require('electron').dialog.showMessageBox(win, options);
           },
           accelerator: "CommandOrControl+I"
+        },
+        {
+          label: 'Quit',
+          click: () => {
+            app.quit();
+          },
+          accelerator: "CommandOrControl+Q"
         }
       ]
     }
