@@ -5,7 +5,7 @@
 // ローカルプロパティ
 // Hard Coding!!!
 const appName = 'ocoge';
-const defpath = '/home/pi/Documents/ocoge/';
+const defpath = '/home/pi/Documents/ocoge_docs/';
 const mascotDefPath = '/home/pi/Applications/ocoge/img/';
 // Require
 const fs = require('fs');

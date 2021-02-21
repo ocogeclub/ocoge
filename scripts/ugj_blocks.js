@@ -1,5 +1,5 @@
 /** Hard Coding!!! */
-const appDocRoot = '/home/pi/Documents/ocoge/'
+const appDocRoot = '/home/pi/Documents/ocoge_docs/'
 
 /** Fix Basic Blocks ****************************************************************************************/
 Blockly.Blocks['ugj_control_for'] = {
