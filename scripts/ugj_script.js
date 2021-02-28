@@ -13,12 +13,6 @@ var network_color = '340';
 var special_color = '20';
 var snippets_color = '90';
 
-// Blockly.Msg.UGJ_GPIO_HUE = 0;//FF7799
-// Blockly.Msg.UGJ_MULTIMEDIA_HUE = 240;//CF63CF
-// Blockly.Msg.UGJ_NETWORK_HUE = 340;//"#54C4EA"
-// Blockly.Msg.UGJ_SPECIAL_HUE = 20;//"#0FBD8C"
-// Blockly.Msg.UGJ_SNIPPETS_HUE = 90;
-
 var theme = Blockly.Theme.defineTheme('ocoge', {
   'base': Blockly.Themes.Classic,
   'startHats': true,
@@ -70,6 +64,14 @@ Blockly.Msg["CONTROLS_REPEAT_INPUT_DO"] = "";
 Blockly.Msg["MATH_CHANGE_TITLE"] = "変数 %1 を %2 増やす";
 Blockly.Msg["VARIABLES_SET"] = "変数 %1 を %2 にする";
 Blockly.Msg["TEXT_PRINT_TITLE"] = "ダイアログに %1 を表示";
+Blockly.Msg["LOGIC_BOOLEAN_FALSE"] = "偽";
+Blockly.Msg["LOGIC_BOOLEAN_TOOLTIP"] = "真 または 偽 を返します。";
+Blockly.Msg["LOGIC_BOOLEAN_TRUE"] = "真";
+// ローカライズ対応の準備
+Blockly.Msg["GPIO_START_TITLE"] = "GPIO を使えるようにする";
+Blockly.Msg["GPIO_START_TOOLTIP"] = "GPIOを初期化して接続します。";
+Blockly.Msg["GPIO_STOP_TITLE"] = "GPIO の後片付けをする";
+Blockly.Msg["GPIO_STOP_TOOLTIP"] = "GPIOとの接続を終了します。";
 
 // Customize Toolbox
 class CustomCategory extends Blockly.ToolboxCategory {
@@ -110,7 +112,7 @@ Blockly.registry.register(
 //============ User Customize End ===============
 
 
-//背景canvasの準備
+//背景canvasとマスコットの準備
 const ugj_canvasBgImg = (imgSrc, x, y) => { //x,y == -1: center or middle
   let el = document.getElementById('canvas_bg');
   let ctx = el.getContext('2d');
@@ -132,9 +134,6 @@ const ugj_canvasBgImg = (imgSrc, x, y) => { //x,y == -1: center or middle
     ctx.drawImage(img, x, y);
   }
 };
-// マスコット
-// ugj_canvasBgImg("./img/mimmy.png?" + new Date().getTime()); // ミミィ
-// ugj_canvasBgImg("./img/cogechee.png?" + new Date().getTime(), -1,-1); // こげちー
 
 // HTML部品のインスタンス - 画面上の必要な部品はすべてここで取得しておく
 ugjel_displayArea = document.getElementById('display_area'); // ディスプレイ部

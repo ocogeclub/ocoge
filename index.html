@@ -91,20 +91,6 @@
       <block type="logic_null"></block>
       <block type="logic_ternary"></block>
     </category>
-
-    <!-- <category name="論理">
-    <block type="controls_if"></block>
-    <block type="logic_compare">
-      <field name="OP">EQ</field>
-    </block>
-    <block type="logic_operation">
-      <field name="OP">AND</field>
-    </block>
-    <block type="logic_negate"></block>
-    <block type="logic_boolean">
-      <field name="BOOL">TRUE</field>
-    </block>
-  </category> -->
     <category name="ループ" css-icon="customIcon fas fa-redo-alt" categorystyle="loop_category">
       <block type="controls_repeat_ext">
         <value name="TIMES">
@@ -312,14 +298,14 @@
       <block type="ugj_gpio_setoutput">
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">20</field>
+            <field name="NUM">5</field>
           </shadow>
         </value>
       </block>
       <block type="ugj_gpio_write">
         <value name="ugj_gpio_num">
           <shadow type="math_number">
-            <field name="NUM">20</field>
+            <field name="NUM">5</field>
           </shadow>
         </value>
         <value name="ugj_gpio_value">
@@ -332,14 +318,14 @@
         <field name="updown">pi.PUD_DOWN</field>
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">4</field>
+            <field name="NUM">6</field>
           </shadow>
         </value>
       </block>
       <block type="ugj_gpio_read">
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">4</field>
+            <field name="NUM">6</field>
           </shadow>
         </value>
       </block>
@@ -348,7 +334,7 @@
         <field name="pwmfreq">50</field>
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">20</field>
+            <field name="NUM">5</field>
           </shadow>
         </value>
       </block>
@@ -360,14 +346,14 @@
         </value>
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">20</field>
+            <field name="NUM">5</field>
           </shadow>
         </value>
       </block>
       <block type="ugj_gpio_servo">
         <value name="gpio">
           <shadow type="math_number">
-            <field name="NUM">14</field>
+            <field name="NUM">12</field>
           </shadow>
         </value>
         <value name="pulsewidth">
@@ -436,16 +422,6 @@
         </value>
       </block>
       <label text="センサー" web-line="4.0" web-line-width="200"></label>
-      <block type="ugj_dht">
-        <field name="type">11</field>
-        <field name="temperature" id="b4bG/!B(8TP1=sB,OJjw" variabletype="">気温</field>
-        <field name="humidity" id="yh}5iLSHLiaNg8BpL|zd" variabletype="">湿度</field>
-        <value name="gpio">
-          <shadow type="math_number">
-            <field name="NUM">4</field>
-          </shadow>
-        </value>
-      </block>
       <label text="Extra" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_gpio_sleep">
         <field name="sec">1</field>
@@ -564,37 +540,11 @@
       <block type="ugj_sound_play">
         <field name="sound">meow</field>
       </block>
-      <block type="ugj_multimedia_webspeech_recognition">
+      <block type="ugj_multimedia_webspeech_recognition" disabled="true">
         <field name="transcript" id="=3;~1sjv_R.pRhO)=wQY" variabletype="">ことば</field>
         <field name="continuous">once</field>
         <field name="interim">TRUE</field>
       </block>
-      <!-- <block type="ugj_multimedia_cloudspeech_recognition">
-      <field name="transcript" id="=3;~1sjv_R.pRhO)=wQY" variabletype="">ことば</field>
-      <field name="continuous">once</field>
-      <field name="interim">TRUE</field>
-    </block> -->
-      <!-- <label text="顔認識" web-line="4.0" web-line-width="200"></label>
-    <block type="ugj_library_load">
-      <value name="lib">
-        <shadow type="ugj_face_library"></block>
-      </value>
-    </block>
-    <block type="ugj_face_init"></block>
-    <block type="ugj_face_display"></block>
-    <block type="ugj_face_detect">
-      <field name="x" id="TF-ziC[]OAJ9]r}YjUQg" variabletype="">左</field>
-      <field name="y" id="]G:_%S*1v4!9_+yx532d" variabletype="">上</field>
-      <field name="w" id="wP$LdeXDCiWzrI!/9R)G" variabletype="">幅</field>
-      <field name="h" id="8+E.-dP-Omt}v2~DCC]M" variabletype="">高さ</field>
-    </block>
-    <block type="ugj_face_drawrect">
-      <value name="color">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#ff0000</field>
-        </shadow>
-      </value>
-    </block> -->
       <label text="画像認識" web-line="4.0" web-line-width="200"></label>
       <block type="ugj_library_load">
         <value name="lib">
@@ -658,7 +608,7 @@
         </value>
       </block>
       <label text="ウェブチャット" web-line="4.0" web-line-width="200"></label>
-      <block type="ugj_library_load" disabled="true">
+      <block type="ugj_library_load">
         <value name="lib">
           <shadow type="ugj_library_skyway"></shadow>
         </value>
@@ -700,11 +650,6 @@
         <value name="question">
           <shadow type="text">
             <field name="TEXT">お名前は？</field>
-          </shadow>
-        </value>
-        <value name="sec">
-          <shadow type="math_number">
-            <field name="NUM">5</field>
           </shadow>
         </value>
       </block>
@@ -808,9 +753,6 @@
           </shadow>
         </value>
       </block>
-      <block type="ugj_child_facepy">
-        <field name="win"> </field>
-      </block>
       <block type="ugj_child_gesture"></block>
       <block type="ugj_child_irrecord">
         <value name="gpio">
@@ -902,12 +844,68 @@
           </shadow>
         </value>
       </block>
-      <block type="ugj_child_debug">
-        <value name="cmd">
-      </block>
       <label text="_" web-line="4.0" web-line-width="200"></label>
     </category>
     <category name="スニペット" css-icon="customIcon fas fa-egg" categorystyle="snippets_category">
+      <label text="入出力" web-line="4.0" web-line-width="200"></label>
+      <block type="ugj_event_answer">
+        <field name="answer" id="_m@Uj#wHnIuGJNVwdUR+" variabletype="">答え</field>
+        <value name="question">
+          <shadow type="text">
+            <field name="TEXT">お名前は？</field>
+          </shadow>
+        </value>
+        <statement name="do">
+          <block type="ugj_canvas_say">
+            <value name="say">
+              <shadow type="text">
+                <field name="TEXT">・・・</field>
+              </shadow>
+            </value>
+            <value name="sec">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="ugj_sleep">
+                <value name="sec">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="ugj_canvas_say">
+                    <value name="say">
+                      <block type="text_join">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get">
+                            <field name="VAR" id="_m@Uj#wHnIuGJNVwdUR+">答え</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text">
+                            <field name="TEXT">たん</field>
+                          </block>
+                        </value>
+                      </block>
+
+                    </value>
+                    <value name="sec">
+                      <shadow type="math_number">
+                        <field name="NUM">2</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+
+      </block>
+
     </category>
   </xml>
 

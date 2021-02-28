@@ -24,36 +24,10 @@ Blockly.Blocks['ugj_control_for'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Msg.LOOPS_HUE);
-    this.setTooltip("");
+    this.setTooltip("インデックス番号を決められた数ずつ増やし（減らし）ながら、ステートメントを実行します。");
     this.setHelpUrl("");
   }
 };
-
-// Blockly.Blocks['ugj_controls_for'] = {
-//   init: function () {
-//     this.appendDummyInput()
-//       .appendField(new Blockly.FieldVariable("番号"), "index");
-//     this.appendValueInput("from")
-//       .setCheck("Number")
-//       .appendField("を");
-//     this.appendValueInput("to")
-//       .setCheck("Number")
-//       .appendField("から");
-//     this.appendValueInput("by")
-//       .setCheck("Number")
-//       .appendField("まで");
-//     this.appendDummyInput()
-//       .appendField("ずつ増やしながら");
-//     this.appendStatementInput("do")
-//       .setCheck(null);
-//     this.setInputsInline(true);
-//     this.setPreviousStatement(true, null);
-//     this.setNextStatement(true, null);
-//     this.setColour(Blockly.Msg.LOOPS_HUE);
-//     this.setTooltip("インデックス番号を決められた数ずつ増やし（減らし）ながら、ステートメントを実行します。");
-//     this.setHelpUrl("");
-//   }
-// };
 Blockly.JavaScript['ugj_control_for'] = function (block) {
   var variable_index = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('index'), Blockly.Variables.NAME_TYPE);
   var value_from = Blockly.JavaScript.valueToCode(block, 'from', Blockly.JavaScript.ORDER_ATOMIC);
@@ -72,20 +46,6 @@ Blockly.JavaScript['ugj_control_for'] = function (block) {
   ].join('\n');
   return code;
 };
-// Blockly.JavaScript['ugj_controls_for'] = function (block) {
-//   var variable_index = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('index'), Blockly.Variables.NAME_TYPE);
-//   var value_from = Blockly.JavaScript.valueToCode(block, 'from', Blockly.JavaScript.ORDER_ATOMIC);
-//   var value_to = Blockly.JavaScript.valueToCode(block, 'to', Blockly.JavaScript.ORDER_ATOMIC);
-//   var value_by = Blockly.JavaScript.valueToCode(block, 'by', Blockly.JavaScript.ORDER_ATOMIC);
-//   var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
-//   var code = [
-//     `for (${variable_index} = ${value_from}; ${variable_index} <= ${value_to}; ${variable_index} += ${value_by}) {`,
-//     statements_do,
-//     `}`,
-//     ''
-//   ].join('\n');
-//   return code;
-// };
 
 Blockly.Blocks['ugj_controls_forEach'] = {
   init: function () {
@@ -146,16 +106,18 @@ Blockly.JavaScript['ugj_hextodec'] = function (block) {
 /************* */
 /** GPIO Start */
 /************* */
+var ugjGpioStart = {
+  "type": "ugj_gpio_start",
+  "message0": "%{BKY_GPIO_START_TITLE}",
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "%{BKY_GPIO_START_TOOLTIP}",
+  "helpUrl": "",
+  "style": "gpio_blocks"
+};
 Blockly.Blocks['ugj_gpio_start'] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField("GPIO を使えるようにする");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setStyle('gpio_blocks')
-    this.setTooltip("GPIOを初期化して接続します。");
-    this.setHelpUrl("");
+    this.jsonInit(ugjGpioStart);
   }
 };
 Blockly.JavaScript['ugj_gpio_start'] = function (block) {
@@ -187,16 +149,40 @@ Blockly.JavaScript['ugj_gpio_start_remote'] = function (block) {
 /************ */
 /** GPIO Stop */
 /************ */
+// var ugjGpioStart = {
+//   "type": "ugj_gpio_start",
+//   "message0": "%{BKY_GPIO_START_TITLE}",
+//   "previousStatement": null,
+//   "nextStatement": null,
+//   "tooltip": "%{BKY_GPIO_START_TOOLTIP}",
+//   "helpUrl": "",
+//   "style": "gpio_blocks"
+// };
+// Blockly.Blocks['ugj_gpio_start'] = {
+//   init: function () {
+//     this.jsonInit(ugjGpioStart);
+//   }
+// };
+var ugjGpioStop = {
+  "type": "ugj_gpio_stop",
+  "message0": "%{BKY_GPIO_STOP_TITLE}",
+  "previousStatement": null,
+  "nextStatement": null,
+  "tooltip": "%{BKY_GPIO_STOP_TOOLTIP}",
+  "helpUrl": "",
+  "style": "gpio_blocks"
+};
 Blockly.Blocks['ugj_gpio_stop'] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField("GPIO の後片付けをする");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setStyle('gpio_blocks')
-    this.setTooltip("GPIOとの接続を終了します。");
-    this.setHelpUrl("");
+    this.jsonInit(ugjGpioStop);
+    // this.appendDummyInput()
+    //   .appendField("GPIO の後片付けをする");
+    // this.setInputsInline(true);
+    // this.setPreviousStatement(true, null);
+    // this.setNextStatement(true, null);
+    // this.setStyle('gpio_blocks')
+    // this.setTooltip("GPIOとの接続を終了します。");
+    // this.setHelpUrl("");
   }
 };
 Blockly.JavaScript['ugj_gpio_stop'] = function (block) {
@@ -584,45 +570,6 @@ Blockly.JavaScript['ugj_gpio_i2creadbyte'] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-/*********** */
-/** DHT11/22 */
-/*********** */
-Blockly.Blocks['ugj_dht'] = {
-  init: function () {
-    this.appendValueInput("gpio")
-      .setCheck("Number")
-      .appendField("GPIO");
-    this.appendDummyInput()
-      .appendField("の温湿度センサー DHT")
-      .appendField(new Blockly.FieldDropdown([["11", "11"], ["22", "22"]]), "type")
-      .appendField("から")
-      .appendField(new Blockly.FieldVariable("気温"), "temperature")
-      .appendField(new Blockly.FieldVariable("湿度"), "humidity")
-      .appendField("を取得");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setStyle('gpio_blocks')
-    this.setTooltip("温湿度センサー DHT11/DHT22 を使用して気温と湿度を読み取ります。");
-    this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['ugj_dht'] = function (block) {
-  var value_gpio = Blockly.JavaScript.valueToCode(block, 'gpio', Blockly.JavaScript.ORDER_ATOMIC);
-  var dropdown_type = block.getFieldValue('type');
-  var variable_temperature = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('temperature'), Blockly.Variables.NAME_TYPE);
-  var variable_humidity = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('humidity'), Blockly.Variables.NAME_TYPE);
-  let fix = dropdown_type / 11 - 1;
-  var code = [
-    `try {`,
-    `let res = await dht.read(${dropdown_type}, ${value_gpio});`,
-    `${variable_temperature} = res.temperature.toFixed(${fix});`,
-    `${variable_humidity} = res.humidity.toFixed(${fix});`,
-    `} catch (err) {console.error("Failed to read sensor data:", err);}`,
-    ''
-  ].join('\n');
-  return code;
-};
 
 
 
@@ -1223,109 +1170,6 @@ Blockly.JavaScript['ugj_sound_play'] = function (block) {
   return code;
 };
 
-/***************************** */
-/** Cloud Speech Recognization */
-/***************************** */
-Blockly.Blocks['ugj_multimedia_cloudspeech_recognition'] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField("音声認識で")
-      .appendField(new Blockly.FieldVariable("ことば"), "transcript")
-      .appendField("を取得する：")
-      .appendField(new Blockly.FieldDropdown([["一回のみ", "once"], ["継続", "continue"]]), "continuous")
-      .appendField(new Blockly.FieldCheckbox("TRUE"), "interim")
-      .appendField("未確定も取得");
-    this.appendStatementInput("isFinal_do")
-      .setCheck(null)
-      .appendField("確定したら");
-    this.appendStatementInput("isInterim_do")
-      .setCheck(null)
-      .appendField("未確定なら");
-    this.appendStatementInput("onStart_do")
-      .setCheck(null)
-      .appendField("開始したら");
-    this.appendStatementInput("onError_do")
-      .setCheck(null)
-      .appendField("停止したら");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setStyle('multimedia_blocks')
-    this.setTooltip("Google Cloud Speech API による音声認識を行います。言葉を検知したらステートメントが実行されます。認識途中の暫定結果を取得することもできます。");
-    this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['ugj_multimedia_cloudspeech_recognition'] = function (block) {
-  var variable_transcript = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('transcript'), Blockly.Variables.NAME_TYPE);
-  var dropdown_continuous = block.getFieldValue('continuous');
-  var checkbox_interim = block.getFieldValue('interim') == 'TRUE';
-  var statements_isfinal_do = Blockly.JavaScript.statementToCode(block, 'isFinal_do');
-  var statements_isinterim_do = Blockly.JavaScript.statementToCode(block, 'isInterim_do');
-  var statements_onStart_do = Blockly.JavaScript.statementToCode(block, 'onStart_do');
-  var statements_onError_do = Blockly.JavaScript.statementToCode(block, 'onError_do');
-  var functionName = Blockly.JavaScript.provideFunction_(
-    'listenTimeout',
-    [
-      'const ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + ' = () => {',
-      'clearTimeout(tout);',
-      'tout = setTimeout(() => {',
-      `console.log('Timeout.');`,
-      'recording.stop();',
-      '}, 15000);',
-      '}'
-    ]
-  );
-  var code = [
-    `const client = new speech.SpeechClient({`,
-    `projectId: 'ugjiclass',`,
-    `keyFilename: './.shared/OCOGE-8a8e7ecac31c.json',`,
-    `});`,
-    `const request = {`,
-    `config: {`,
-    `encoding: 'LINEAR16',`,
-    `sampleRateHertz: 16000,`,
-    `languageCode: 'ja-JP'`,
-    `},`,
-    ``].join('\n');
-  if (dropdown_continuous == 'once') code += 'singleUtterance: true,\n';
-  if (checkbox_interim == true) code += 'interimResults: true,\n';
-  code += [
-    `};`,
-    `var tout;`,
-    `${functionName}();`,
-    `const recognizeStream = client`,
-    `.streamingRecognize(request)`,
-    `.on('error', console.error)`,
-    `.on('data', data => {`,
-    `let result = data.results[0];`,
-    `if (result && result.alternatives[0]) {`,
-    `${variable_transcript} = result.alternatives[0].transcript;`,
-    `if (result.isFinal) {`,
-    statements_isfinal_do,
-    `${functionName}();`,
-    `} else {`,
-    statements_isinterim_do,
-    `}`,
-    `} else {`,
-    `console.log('Reached transcription time limit.');`,
-    `recording.stop();`,
-    'clearTimeout(tout);',
-    `}`,
-    `});`,
-    `const recording = recorder.record({`,
-    `sampleRate: 16000,`,
-    `recorder: 'sox',`,
-    `silence: '0.5',`,
-    `});`,
-    `recording`,
-    `.stream()`,
-    `.on('error', err => {${statements_onError_do}})`,
-    `.pipe(recognizeStream);`,
-    statements_onStart_do,
-    ''
-  ].join('\n');
-  return code;
-};
-
 /*************************** */
 /** Web Speech Recognization */
 /*************************** */
@@ -1353,7 +1197,7 @@ Blockly.Blocks['ugj_multimedia_webspeech_recognition'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setStyle('multimedia_blocks')
-    this.setTooltip("Web Speech API による音声認識を行います。言葉を検知したらステートメントが実行されます。認識途中の暫定結果を取得することもできます。");
+    this.setTooltip("Web Speech API による音声認識を行います。言葉を検知したらステートメントが実行されます。認識途中の暫定結果を取得することもできます。※Web版のみの機能です。");
     this.setHelpUrl("");
   }
 };
@@ -1996,9 +1840,6 @@ Blockly.Blocks['ugj_event_answer'] = {
   init: function () {
     this.appendValueInput("question")
       .setCheck("String");
-    // this.appendValueInput("sec")
-    //     .setCheck("Number")
-    //     .appendField("と");
     this.appendDummyInput()
       .appendField("ときいて")
       .appendField(new Blockly.FieldVariable("答え"), "answer")
@@ -2013,7 +1854,6 @@ Blockly.Blocks['ugj_event_answer'] = {
 };
 Blockly.JavaScript['ugj_event_answer'] = function (block) {
   var value_question = Blockly.JavaScript.valueToCode(block, 'question', Blockly.JavaScript.ORDER_ATOMIC);
-  // var value_sec = Blockly.JavaScript.valueToCode(block, 'sec', Blockly.JavaScript.ORDER_ATOMIC);
   var variable_answer = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('answer'), Blockly.Variables.NAME_TYPE);
   var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
   var code = [
@@ -2126,24 +1966,7 @@ Blockly.JavaScript['ugj_child_gesture'] = function (block) {
   var code = `'python3', ['./scripts/gesture.py']`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
-// face.py
-Blockly.Blocks['ugj_child_facepy'] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField("face.py：カメラ画像を表示")
-      .appendField(new Blockly.FieldDropdown([["しない", " "], ["する", "-w"]]), "win");
-    this.setOutput(true, "shcmd");
-    this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setStyle('special_blocks')
-    this.setTooltip("OpenCVによる顔認識 Python2スクリプト - 顔のX座標を返します。");
-    this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['ugj_child_facepy'] = function (block) {
-  var dropdown_win = block.getFieldValue('win');
-  var code = `'python', ['./scripts/face.py', '${dropdown_win}']`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
+
 // open jtalk
 Blockly.Blocks['ugj_child_openjtalk'] = {
   init: function () {
@@ -2362,29 +2185,6 @@ Blockly.JavaScript['ugj_child_testjs'] = function (block) {
   // TODO: Assemble JavaScript into code variable.
   var code = "'node', ['test.js']";
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-// Debug *Danger*
-Blockly.Blocks['ugj_child_debug'] = {
-  init: function () {
-    this.appendValueInput("cmd")
-      .setCheck("String")
-      .appendField("cmd");
-    this.appendValueInput("opt")
-      .setCheck("Array")
-      .appendField("opt");
-    this.setInputsInline(true);
-    this.setOutput(true, "shcmd");
-    this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
-    this.setStyle('special_blocks')
-    this.setTooltip("さわるなきけん");
-    this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['ugj_child_debug'] = function (block) {
-  var value_cmd = Blockly.JavaScript.valueToCode(block, 'cmd', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_opt = Blockly.JavaScript.valueToCode(block, 'opt', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = `${value_cmd}, ${value_opt}`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
