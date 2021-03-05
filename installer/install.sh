@@ -2,7 +2,7 @@
 # Usage: bash install.sh
 
 # install node.js (=electron node version) via n (https://github.com/tj/n)
-sudo bash ./files/n 12.18.3
+sudo bash ./files/n 14.16.0
 # Install latest version of n via npm globally
 sudo npm install -g n
 # install desktop entry
